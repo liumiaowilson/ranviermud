@@ -13,6 +13,20 @@ module.exports = (srcPath) => {
           };
         }
 
+        const commands = [];
+
+        for (let [ name, command ] of state.CommandManager.commands) {
+          if (this.role < command.requiredRole) {
+            continue;
+          }
+
+          commands.push(name);
+        }
+
+        for (let [ name ] of state.ChannelManager.channels) {
+          commands.push(name);
+        }
+
         const data = {
           attributes,
           level: this.level,
@@ -27,6 +41,7 @@ module.exports = (srcPath) => {
           })),
           effects: this.effects.entries().filter(effect => !effect.config.hidden).map(effect => effect.serialize()),
           quests: this.questTracker.serialize().active,
+          commands,
         };
 
         this.socket.command('sendData', data);

@@ -14,6 +14,7 @@ module.exports = (srcPath) => {
         }
 
         const commands = [];
+        const commandOptions = {};
 
         for (let [ name, command ] of state.CommandManager.commands) {
           if (this.role < command.requiredRole) {
@@ -21,6 +22,12 @@ module.exports = (srcPath) => {
           }
 
           commands.push(name);
+          if(typeof command.options === "function") {
+            commandOptions[name] = command.options(state, this);
+          }
+          else {
+            commandOptions[name] = command.options;
+          }
         }
 
         for (let [ name ] of state.ChannelManager.channels) {
@@ -42,6 +49,7 @@ module.exports = (srcPath) => {
           effects: this.effects.entries().filter(effect => !effect.config.hidden).map(effect => effect.serialize()),
           quests: this.questTracker.serialize().active,
           commands,
+          commandOptions,
         };
 
         this.socket.command('sendData', data);

@@ -32,6 +32,7 @@ class Command {
     this.func = def.command;
     this.aliases = def.aliases;
     this.usage = def.usage || this.name;
+    this.options = def.options || {};
     this.requiredRole = def.requiredRole || PlayerRoles.PLAYER;
     this.file = file;
   }

@@ -11,7 +11,7 @@
     "ranvier-websocket",
     "ranvier-areas",
     "ranvier-channels",
-    "ranvier-commands",
+    "world-commands",
     "ranvier-effects",
     "ranvier-groups",
     "ranvier-input-events",

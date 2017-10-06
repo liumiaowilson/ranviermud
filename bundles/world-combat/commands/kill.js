@@ -3,13 +3,25 @@
 const Combat = require('../lib/Combat');
 const CombatErrors = require('../lib/CombatErrors');
 
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const Logger = require(srcPath + 'Logger');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     aliases: ['attack', 'slay'],
+    options: (state, player) => {
+      let options = {};
+      if(player.getMeta('pvp')) {
+        SearchUtil.listKeywordsOfTargets(player).forEach(keyword => options[keyword] = {});
+      }
+      else {
+        SearchUtil.listKeywordsOfNpcs(player).forEach(keyword => options[keyword] = {});
+      }
+
+      return options;
+    },
     command : (state) => (args, player) => {
       args = args.trim();
 

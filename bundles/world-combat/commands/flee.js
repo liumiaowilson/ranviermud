@@ -1,12 +1,19 @@
 'use strict';
 
-module.exports = srcPath => {
+module.exports = (srcPath, bundlePath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Random = require(srcPath + 'RandomUtil');
   const say = Broadcast.sayAt;
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     usage: 'flee [direction]',
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listExitNames(player).forEach(exit => options[exit] = {});
+
+      return options;
+    },
     command: state => (direction, player) => {
       if (!player.isInCombat()) {
         return say(player, "You jump at the sight of your own shadow.");

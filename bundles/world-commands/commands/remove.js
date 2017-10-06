@@ -4,10 +4,17 @@ module.exports = (srcPath, bundlePath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     aliases: [ 'unwield', 'unequip' ],
     usage: 'remove <item>',
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfEquipmentItems(player).forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
     command : state => (arg, player) => {
       if (!arg.length) {
         return Broadcast.sayAt(player, 'Remove what?');

@@ -188,6 +188,26 @@ function listKeywordsOfInventoryItems(player, predicate) {
 exports.listKeywordsOfInventoryItems = listKeywordsOfInventoryItems;
 
 /**
+ * List keywords of the equipment items around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {Set}
+ */
+function listKeywordsOfEquipmentItems(player, predicate) {
+    let keywords = new Set();
+    if(!player) {
+      return keywords;
+    }
+
+    const room = player.room;
+
+    listKeywordsOfList(player.equipment, predicate).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfEquipmentItems = listKeywordsOfEquipmentItems;
+
+/**
  * List the exit names of the room around the player
  * @param {Player} player
  * @param {Function} predicate

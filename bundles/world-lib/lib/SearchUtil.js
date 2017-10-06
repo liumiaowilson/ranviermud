@@ -10,7 +10,7 @@ const srcPath = '../../../src/'
  * List keywords of the list
  * @param {List} list
  * @param {Function} predicate
- * @return {List}
+ * @return {Set}
  */
 function listKeywordsOfList(list, predicate) {
   let keywords = new Set();
@@ -30,7 +30,7 @@ function listKeywordsOfList(list, predicate) {
       continue;
     }
 
-    listKeywordsOfObject(entry).forEach(keyword => keywords.add(keyword));
+    keywords.add(listKeywordsOfObject(entry));
   }
 
   return keywords;
@@ -40,7 +40,7 @@ exports.listKeywordsOfList = listKeywordsOfList;
 /**
  * List keywords of the object
  * @param {Object} object
- * @return {List}
+ * @return {String}
  */
 function listKeywordsOfObject(object) {
   let keywords = new Set();
@@ -56,7 +56,7 @@ function listKeywordsOfObject(object) {
     keywords.add(object.name);
   }
 
-  return keywords;
+  return Array.from(keywords).join(" ");
 }
 exports.listKeywordsOfObject = listKeywordsOfObject;
 
@@ -64,7 +64,7 @@ exports.listKeywordsOfObject = listKeywordsOfObject;
  * List keywords around the player
  * @param {Player} player
  * @param {Function} predicate
- * @return {List}
+ * @return {Set}
  */
 function listKeywords(player, predicate) {
     let keywords = new Set();
@@ -87,7 +87,7 @@ exports.listKeywords = listKeywords;
  * List keywords of the items around the player
  * @param {Player} player
  * @param {Function} predicate
- * @return {List}
+ * @return {Set}
  */
 function listKeywordsOfItems(player, predicate) {
     let keywords = new Set();
@@ -108,7 +108,7 @@ exports.listKeywordsOfItems = listKeywordsOfItems;
  * List keywords of the items in the room around the player
  * @param {Player} player
  * @param {Function} predicate
- * @return {List}
+ * @return {Set}
  */
 function listKeywordsOfRoomItems(player, predicate) {
     let keywords = new Set();
@@ -123,29 +123,3 @@ function listKeywordsOfRoomItems(player, predicate) {
     return keywords;
 }
 exports.listKeywordsOfRoomItems = listKeywordsOfRoomItems;
-
-/**
- * break down the words
- * @param {List} words
- * @return {List}
- */
-function breakDown(words) {
-    let ret = new Set();
-    if(!words) {
-      return ret;
-    }
-
-    words.forEach(word => {
-      if(word) {
-        word.split(" ").forEach(item => {
-          if(item) {
-            item = item.trim().toLowerCase();
-            ret.add(item);
-          }
-        });
-      }
-    });
-
-    return ret;
-}
-exports.breakDown = breakDown;

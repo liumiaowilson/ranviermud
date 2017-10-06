@@ -19,8 +19,7 @@ module.exports = (srcPath, bundlePath) => {
     options: (state, player) => {
       let options = {};
       let keywords = SearchUtil.listKeywords(player);
-      let words = SearchUtil.breakDown(keywords);
-      words.forEach(word => options[word] = {});
+      keywords.forEach(keyword => options[keyword] = {});
 
       return options;
     },

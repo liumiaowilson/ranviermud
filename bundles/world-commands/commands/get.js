@@ -17,7 +17,6 @@ module.exports = (srcPath, bundlePath) => {
         let containers = Array.from(player.room.items).filter(item => item.type === ItemType.CONTAINER && !item.closed);
         for(let container of containers) {
           let containerKeywords = SearchUtil.listKeywordsOfObject(container);
-          containerKeywords = SearchUtil.breakDown(containerKeywords);
           let containerOptions = {};
           if(container.inventory) {
             for(let item of container.inventory) {
@@ -29,13 +28,10 @@ module.exports = (srcPath, bundlePath) => {
                 continue;
               }
               let itemKeywords = SearchUtil.listKeywordsOfObject(item);
-              itemKeywords = SearchUtil.breakDown(itemKeywords);
-              itemKeywords.forEach(keyword => containerOptions[keyword] = {});
+              containerOptions[itemKeywords] = {};
             }
             containerOptions["all"] = {};
-            for(let containerKeyword of containerKeywords) {
-              options[containerKeyword] = containerOptions;
-            }
+            options[containerKeywords] = containerOptions;
           }
         }
 
@@ -46,8 +42,7 @@ module.exports = (srcPath, bundlePath) => {
           }
 
           let itemKeywords = SearchUtil.listKeywordsOfObject(item);
-          itemKeywords = SearchUtil.breakDown(itemKeywords);
-          itemKeywords.forEach(keyword => options["room"][keyword] = {});
+          options["room"][itemKeywords] = {};
         }
         options["room"]["all"] = {};
       }

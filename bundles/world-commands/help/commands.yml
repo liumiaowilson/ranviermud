@@ -1,0 +1,4 @@
+---
+command: commands
+body: |
+  Show all available commands.

@@ -1,0 +1,4 @@
+---
+command: map
+body: |
+  Show the map around you.

@@ -1,0 +1,4 @@
+---
+command: close
+body: |
+  Close an item or a door.

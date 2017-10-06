@@ -1,0 +1,4 @@
+---
+command: unlock
+body: |
+  Unlock an item or a door.

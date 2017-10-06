@@ -1,0 +1,4 @@
+---
+command: open
+body: |
+  Open an item or a door.

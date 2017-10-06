@@ -1,0 +1,4 @@
+---
+command: lock
+body: |
+  Lock an item or a door.

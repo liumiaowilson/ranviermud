@@ -14,6 +14,7 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     aliases: [ 'quaff', 'recite' ],
+    usage: 'use <item>',
     command: state => (args, player) => {
       const say = message => Broadcast.sayAt(player, message);
 

@@ -1,0 +1,4 @@
+---
+command: score
+body: |
+  Show your statistics score.

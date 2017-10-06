@@ -1,0 +1,4 @@
+---
+command: talk
+body: |
+  Talk to an npc and say a message.

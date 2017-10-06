@@ -4,11 +4,56 @@ module.exports = (srcPath, bundlePath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const ItemType = require(srcPath + 'ItemType');
-  const ItemUtil = require(bundlePath + 'ranvier-lib/lib/ItemUtil');
+  const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
-    usage: 'get <item> [container]',
+    usage: 'get [container] <item> | get room <item>',
     aliases: [ 'take', 'pick', 'loot' ],
+    options: (state, player) => {
+      let options = {};
+
+      if(player.room) {
+        let containers = Array.from(player.room.items).filter(item => item.type === ItemType.CONTAINER && !item.closed);
+        for(let container of containers) {
+          let containerKeywords = SearchUtil.listKeywordsOfObject(container);
+          containerKeywords = SearchUtil.breakDown(containerKeywords);
+          let containerOptions = {};
+          if(container.inventory) {
+            for(let item of container.inventory) {
+              if (Array.isArray(item)) {
+                item = item[1];
+              }
+
+              if(item.properties && item.properties.noPickup) {
+                continue;
+              }
+              let itemKeywords = SearchUtil.listKeywordsOfObject(item);
+              itemKeywords = SearchUtil.breakDown(itemKeywords);
+              itemKeywords.forEach(keyword => containerOptions[keyword] = {});
+            }
+            containerOptions["all"] = {};
+            for(let containerKeyword of containerKeywords) {
+              options[containerKeyword] = containerOptions;
+            }
+          }
+        }
+
+        options["room"] = {};
+        for(let item of player.room.items) {
+          if(item.properties && item.properties.noPickup) {
+            continue;
+          }
+
+          let itemKeywords = SearchUtil.listKeywordsOfObject(item);
+          itemKeywords = SearchUtil.breakDown(itemKeywords);
+          itemKeywords.forEach(keyword => options["room"][keyword] = {});
+        }
+        options["room"]["all"] = {};
+      }
+
+      return options;
+    },
     command : (state) => (args, player, arg0) => {
       if (!args.length) {
         return Broadcast.sayAt(player, 'Get what?');
@@ -24,25 +69,17 @@ module.exports = (srcPath, bundlePath) => {
 
       // 'loot' is an alias for 'get all'
       if (arg0 === 'loot') {
-        args = ('all ' + args).trim();
+        args = (args + ' all').trim();
       }
 
-      // get 3.foo from bar -> get 3.foo bar
-      let parts = args.split(' ').filter(arg => !arg.match(/from/));
-
-      // pick up <item>
-      if (parts.length > 1 && parts[0] === 'up') {
-        parts = parts.slice(1);
-      }
+      // get bar 3.foo
+      let parts = args.split(' ');
 
       let source = null, search = null, container = null;
-      if (parts.length === 1) {
-        search = parts[0];
+      if (parts[0] === 'room') {
         source = player.room.items;
       } else {
-      //Newest containers should go first, so that if you type get all corpse you get from the 
-      // most recent corpse. See issue #247.
-        container = Parser.parseDot(parts[1], [...player.room.items].reverse());
+        container = Parser.parseDot(parts[0], [...player.room.items].reverse());
         if (!container) {
           return Broadcast.sayAt(player, "You don't see anything like that here.");
         }
@@ -55,9 +92,9 @@ module.exports = (srcPath, bundlePath) => {
           return Broadcast.sayAt(player, `${ItemUtil.display(container)} is closed.`);
         }
 
-        search = parts[0];
         source = container.inventory;
       }
+      search = parts[1];
 
       if (search === 'all') {
         if (!source || ![...source].length) {

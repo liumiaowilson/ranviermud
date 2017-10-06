@@ -30,18 +30,35 @@ function listKeywordsOfList(list, predicate) {
       continue;
     }
 
-    if(entry.keywords) {
-      entry.keywords.forEach(keyword => keywords.add(keyword));
-    }
-
-    if(entry.name) {
-      keywords.add(entry.name);
-    }
+    listKeywordsOfObject(entry).forEach(keyword => keywords.add(keyword));
   }
 
   return keywords;
 }
 exports.listKeywordsOfList = listKeywordsOfList;
+
+/**
+ * List keywords of the object
+ * @param {Object} object
+ * @return {List}
+ */
+function listKeywordsOfObject(object) {
+  let keywords = new Set();
+  if(!object) {
+    return keywords;
+  }
+
+  if(object.keywords) {
+    object.keywords.forEach(keyword => keywords.add(keyword));
+  }
+
+  if(object.name) {
+    keywords.add(object.name);
+  }
+
+  return keywords;
+}
+exports.listKeywordsOfObject = listKeywordsOfObject;
 
 /**
  * List keywords around the player

@@ -3,11 +3,12 @@
 const sprintf = require('sprintf-js').sprintf;
 
 module.exports = (srcPath) => {
-  
+
   const Broadcast = require(srcPath + 'Broadcast');
 
   return {
     aliases: ['channels'],
+    options: {},
     command: (state) => (args, player) => {
 
       // print standard commands
@@ -42,7 +43,7 @@ module.exports = (srcPath) => {
           Broadcast.sayAt(player, '');
         }
       }
-      
+
       // end with a line break
       Broadcast.sayAt(player, '');
     }

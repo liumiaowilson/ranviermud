@@ -6,13 +6,20 @@
  * @param {Player} player
  * @return {boolean} False if the exit is inaccessible.
  */
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const Player = require(srcPath + 'Player');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     aliases: [ "go", "walk" ],
     usage: 'move [direction]',
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listExitNames(player).forEach(exit => options[exit] = {});
+
+      return options;
+    },
     command: (state) => (exitName, player) => {
       const oldRoom = player.room;
       if (!oldRoom) {

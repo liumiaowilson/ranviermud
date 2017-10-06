@@ -61,6 +61,26 @@ function listKeywords(player) {
 exports.listKeywords = listKeywords;
 
 /**
+ * List keywords of the items around the player
+ * @param {Player} player
+ * @return List
+ */
+function listKeywordsOfItems(player) {
+    let keywords = new Set();
+    if(!player) {
+      return keywords;
+    }
+
+    const room = player.room;
+
+    listKeywordsOfList(room.items).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(player.inventory).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfItems = listKeywordsOfItems;
+
+/**
  * break down the words
  * @param {List} words
  * @return List

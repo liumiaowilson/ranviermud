@@ -8,6 +8,7 @@ module.exports = (srcPath) => {
 
   return {
     usage: 'flush',
+    options: {},
     command : (state) => (args, player) => {
       player.commandQueue.flush();
       Broadcast.sayAt(player, '<bold><yellow>Queue flushed.</yellow></bold>');

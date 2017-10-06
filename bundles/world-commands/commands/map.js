@@ -3,6 +3,7 @@ module.exports = srcPath => {
 
   return {
     usage: 'map',
+    options: {},
     command: state => (args, player) => {
       const room = player.room;
       if (!room || !room.coordinates) {

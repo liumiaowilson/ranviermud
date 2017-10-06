@@ -164,3 +164,28 @@ function listKeywordsOfInventoryItems(player, predicate) {
     return keywords;
 }
 exports.listKeywordsOfInventoryItems = listKeywordsOfInventoryItems;
+
+/**
+ * List the exit names of the room around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {Set}
+ */
+function listExitNames(player, predicate) {
+    let names = new Set();
+    if(!player || !player.room) {
+      return names;
+    }
+
+    Array.from(player.room.exits).forEach(exit => {
+      if(exit.direction) {
+        if(typeof predicate === "function" && !predicate(exit)) {
+          return;
+        }
+        names.add(exit.direction);
+      }
+    });
+
+    return names;
+}
+exports.listExitNames = listExitNames;

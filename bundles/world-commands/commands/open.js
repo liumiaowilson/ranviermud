@@ -17,13 +17,7 @@ module.exports = (srcPath, bundlePath) => {
       });
 
       options["door"] = {};
-      if(player.room) {
-        Array.from(player.room.exits).forEach(exit => {
-          if(exit.direction) {
-            options["door"][exit.direction] = {};
-          }
-        });
-      }
+      SearchUtil.listExitNames(player).forEach(exit => options["door"][exit] = {});
 
       return options;
     },

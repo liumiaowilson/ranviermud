@@ -1,13 +1,14 @@
 'use strict';
 
 const sprintf = require('sprintf-js').sprintf;
-const Combat = require('../../ranvier-combat/lib/Combat');
+const Combat = require('../../world-combat/lib/Combat');
 
 module.exports = (srcPath) => {
   const B = require(srcPath + 'Broadcast');
 
   return {
     aliases: [ 'stats' ],
+    options: {},
     command : (state) => (args, p) => {
       const say = message => B.sayAt(p, message);
 

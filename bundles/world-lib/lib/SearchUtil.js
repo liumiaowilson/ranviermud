@@ -84,6 +84,27 @@ function listKeywords(player, predicate) {
 exports.listKeywords = listKeywords;
 
 /**
+ * List keywords of targets around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {Set}
+ */
+function listKeywordsOfTargets(player, predicate) {
+    let keywords = new Set();
+    if(!player) {
+      return keywords;
+    }
+
+    const room = player.room;
+
+    listKeywordsOfList(room.players, predicate).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(room.npcs, predicate).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfTargets = listKeywordsOfTargets;
+
+/**
  * List keywords of the items around the player
  * @param {Player} player
  * @param {Function} predicate

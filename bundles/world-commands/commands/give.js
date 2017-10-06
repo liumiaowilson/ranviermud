@@ -4,20 +4,31 @@ module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const { CommandParser } = require(srcPath + 'CommandParser');
   const dot = CommandParser.parseDot;
-  const ItemUtil = require(bundlePath + 'ranvier-lib/lib/ItemUtil');
+  const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     usage: 'give <item> <target>',
+    options: (state, player) => {
+      let options = {};
+      let itemKeywords = SearchUtil.listKeywordsOfInventoryItems(player);
+      let targetKeywords = SearchUtil.listKeywordsOfTargets(player);
+      let targetOptions = {};
+      targetKeywords.forEach(keyword => {
+        targetOptions[keyword] = {};
+      });
+      itemKeywords.forEach(keyword => {
+        options[keyword] = targetOptions;
+      });
+
+      return options;
+    },
     command: state => (args, player) => {
       if (!args || !args.length) {
         return B.sayAt(player, 'Give what to whom?');
       }
 
-      let [ targetItem, to, targetRecip ] = args.split(' ');
-      // give foo to bar
-      if (to !== 'to' || !targetRecip) {
-        targetRecip = to;
-      }
+      let [ targetItem, targetRecip ] = args.split(' ');
 
       if (!targetRecip) {
         return B.sayAt(player, 'Who do you want to give it to?');
@@ -39,7 +50,7 @@ module.exports = (srcPath, bundlePath) => {
           if (!accepts || !accepts.includes(targetItem.entityReference)) {
             return B.sayAt(player, 'They don\'t want that.');
           }
-        } 
+        }
       }
 
       if (!target) {

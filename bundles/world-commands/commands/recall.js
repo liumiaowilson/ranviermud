@@ -5,6 +5,7 @@ module.exports = srcPath => {
 
   return {
     usage: 'recall',
+    options: {},
     command: state => (args, player) => {
       const home = player.getMeta('waypoints.home');
       if (!home) {

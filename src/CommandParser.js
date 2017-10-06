@@ -1,6 +1,7 @@
 'use strict';
 
 const CommandType = require('./CommandType');
+const Logger = require("./Logger");
 
 /**
  * Interpreter.. you guessed it, interprets command input
@@ -170,7 +171,8 @@ class CommandParser {
       }
 
       if (!('keywords' in entry) && !('name' in entry)) {
-        throw new Error('Items in list have no keywords or name');
+        Logger.error('Items in list have no keywords or name');
+        continue;
       }
 
       // prioritize keywords over item/player names

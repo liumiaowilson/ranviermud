@@ -6,6 +6,7 @@ module.exports = (srcPath) => {
 
   return {
     usage: 'emote <message>',
+    options: {},
     aliases: [':'],
     command: (state) => (args, player) => {
       args = args.trim();

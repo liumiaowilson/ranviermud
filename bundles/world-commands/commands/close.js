@@ -3,10 +3,31 @@
 module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
-  const ItemUtil = require(bundlePath + 'ranvier-lib/lib/ItemUtil');
+  const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     usage: 'close <item> / close door <door direction>',
+    options: (state, player) => {
+      let options = {};
+
+      let keywords = SearchUtil.listKeywordsOfItems(player);
+      let words = SearchUtil.breakDown(keywords);
+      words.forEach(word => {
+        options[word] = {};
+      });
+
+      options["door"] = {};
+      if(player.room) {
+        Array.from(player.room.exits).forEach(exit => {
+          if(exit.direction) {
+            options["door"][exit.direction] = {};
+          }
+        });
+      }
+
+      return options;
+    },
     command: state => (args, player) => {
       if (!args || !args.length) {
         return B.sayAt(player, "Close what?");

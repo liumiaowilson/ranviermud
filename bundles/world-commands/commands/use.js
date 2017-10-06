@@ -11,10 +11,18 @@ module.exports = (srcPath, bundlePath) => {
   const { CommandParser } = require(srcPath + 'CommandParser');
   const SkillErrors = require(srcPath + 'SkillErrors');
   const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     aliases: [ 'quaff', 'recite' ],
     usage: 'use <item>',
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfInventoryItems(player, item => item.getBehavior('usable'))
+          .forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
     command: state => (args, player) => {
       const say = message => Broadcast.sayAt(player, message);
 

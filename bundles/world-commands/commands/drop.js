@@ -3,10 +3,21 @@
 module.exports = (srcPath, bundlePath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
-  const ItemUtil = require(bundlePath + 'ranvier-lib/lib/ItemUtil');
+  const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     usage: 'drop <item>',
+    options: (state, player) => {
+      let options = {};
+      if(player.room) {
+        SearchUtil.listKeywordsOfInventoryItems(player).forEach(keyword => {
+          options[keyword] = {};
+        });
+      }
+
+      return options;
+    },
     command : (state) => (args, player) => {
       args = args.trim();
 
@@ -37,4 +48,3 @@ module.exports = (srcPath, bundlePath) => {
     }
   };
 };
-

@@ -1,13 +1,20 @@
 'use strict';
 
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const ItemType = require(srcPath + 'ItemType');
   const Logger = require(srcPath + 'Logger');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     usage: 'talk <npc> <message>',
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfNpcs(player).forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
     command : (state) => (args, player) => {
       if (!args.length) {
         return B.sayAt(player, 'Who are you trying to talk to?');
@@ -19,12 +26,6 @@ module.exports = (srcPath) => {
 
       let [ npcSearch, ...messageParts ] = args.split(' ');
       let message = messageParts.join(' ').trim();
-
-      // allow for `talk to npc message here`
-      if (npcSearch === 'to' && messageParts.length > 1) {
-        npcSearch = messageParts[0];
-        message = messageParts.slice(1).join(' ');
-      }
 
       if (!npcSearch) {
         return B.sayAt(player, 'Who are you trying to talk to?');

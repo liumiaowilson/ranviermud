@@ -68,7 +68,7 @@ exports.listKeywordsOfObject = listKeywordsOfObject;
  */
 function listKeywords(player, predicate) {
     let keywords = new Set();
-    if(!player) {
+    if(!player || !player.room) {
       return keywords;
     }
 
@@ -91,7 +91,7 @@ exports.listKeywords = listKeywords;
  */
 function listKeywordsOfTargets(player, predicate) {
     let keywords = new Set();
-    if(!player) {
+    if(!player || !player.room) {
       return keywords;
     }
 
@@ -105,6 +105,46 @@ function listKeywordsOfTargets(player, predicate) {
 exports.listKeywordsOfTargets = listKeywordsOfTargets;
 
 /**
+ * List keywords of npcs around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {Set}
+ */
+function listKeywordsOfNpcs(player, predicate) {
+    let keywords = new Set();
+    if(!player || !player.room) {
+      return keywords;
+    }
+
+    const room = player.room;
+
+    listKeywordsOfList(room.npcs, predicate).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfNpcs = listKeywordsOfNpcs;
+
+/**
+ * List keywords of players around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {Set}
+ */
+function listKeywordsOfPlayers(player, predicate) {
+    let keywords = new Set();
+    if(!player || !player.room) {
+      return keywords;
+    }
+
+    const room = player.room;
+
+    listKeywordsOfList(room.players, predicate).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfPlayers = listKeywordsOfPlayers;
+
+/**
  * List keywords of the items around the player
  * @param {Player} player
  * @param {Function} predicate
@@ -112,7 +152,7 @@ exports.listKeywordsOfTargets = listKeywordsOfTargets;
  */
 function listKeywordsOfItems(player, predicate) {
     let keywords = new Set();
-    if(!player) {
+    if(!player || !player.room) {
       return keywords;
     }
 
@@ -133,7 +173,7 @@ exports.listKeywordsOfItems = listKeywordsOfItems;
  */
 function listKeywordsOfAllItems(player, predicate) {
     let keywords = new Set();
-    if(!player) {
+    if(!player || !player.room) {
       return keywords;
     }
 
@@ -155,7 +195,7 @@ exports.listKeywordsOfAllItems = listKeywordsOfAllItems;
  */
 function listKeywordsOfRoomItems(player, predicate) {
     let keywords = new Set();
-    if(!player) {
+    if(!player || !player.room) {
       return keywords;
     }
 
@@ -175,7 +215,7 @@ exports.listKeywordsOfRoomItems = listKeywordsOfRoomItems;
  */
 function listKeywordsOfInventoryItems(player, predicate) {
     let keywords = new Set();
-    if(!player) {
+    if(!player || !player.room) {
       return keywords;
     }
 
@@ -195,7 +235,7 @@ exports.listKeywordsOfInventoryItems = listKeywordsOfInventoryItems;
  */
 function listKeywordsOfEquipmentItems(player, predicate) {
     let keywords = new Set();
-    if(!player) {
+    if(!player || !player.room) {
       return keywords;
     }
 

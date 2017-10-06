@@ -5,6 +5,7 @@ module.exports = (srcPath) => {
 
   return {
     usage: 'who',
+    options: {},
     command: (state) => (args, player) => {
       Broadcast.sayAt(player, "<bold><red>                  Who's Online</bold></red>");
       Broadcast.sayAt(player, "<bold><red>===============================================</bold></red>");

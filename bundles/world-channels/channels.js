@@ -23,7 +23,6 @@ module.exports = (srcPath) => {
       color: ['yellow'],
       description: 'Send a message to all players in your room',
       audience: new RoomAudience(),
-      minRequiredRole: PlayerRoles.ADMIN,
       formatter: {
         sender: function (sender, target, message, colorify) {
           return colorify(`You say: '${message}'`);

@@ -1,0 +1,4 @@
+---
+channel: say
+body: |
+  Send a message to all players in your room

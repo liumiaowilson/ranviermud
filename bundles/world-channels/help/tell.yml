@@ -1,0 +1,4 @@
+---
+channel: tell
+body: |
+  Send a private message to another player

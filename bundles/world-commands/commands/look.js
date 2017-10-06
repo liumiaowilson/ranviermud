@@ -11,10 +11,19 @@ module.exports = (srcPath, bundlePath) => {
   const ItemType = require(srcPath + 'ItemType');
   const Logger = require(srcPath + 'Logger');
   const Player = require(srcPath + 'Player');
-  const ItemUtil = require(bundlePath + 'ranvier-lib/lib/ItemUtil');
+  const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     usage: "look [thing]",
+    options: (state, player) => {
+      let options = {};
+      let keywords = SearchUtil.listKeywords(player);
+      let words = SearchUtil.breakDown(keywords);
+      words.forEach(word => options[word] = {});
+
+      return options;
+    },
     command: state => (args, player) => {
       if (!player.room) {
         Logger.error(player.getName() + ' is in limbo.');
@@ -218,13 +227,7 @@ module.exports = (srcPath, bundlePath) => {
     const room = player.room;
 
     args = args.split(' ');
-    let search = null;
-
-    if (args.length > 1) {
-      search = args[0] === 'in' ? args[1] : args[0];
-    } else {
-      search = args[0];
-    }
+    let search = args[0];
 
     let entity = CommandParser.parseDot(search, room.items);
     entity = entity || CommandParser.parseDot(search, room.players);

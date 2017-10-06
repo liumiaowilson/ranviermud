@@ -4,9 +4,19 @@ module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
-    usage: 'unlock <door direction>',
+    usage: 'unlock <item> | unlock door <door direction>',
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfItems(player, item => item.closed && item.locked).forEach(keyword => options[keyword] = {});
+
+      options["door"] = {};
+      SearchUtil.listExitNames(player).forEach(exit => options["door"][exit] = {});
+
+      return options;
+    },
     command: state => (args, player) => {
       if (!args || !args.length) {
         return B.sayAt(player, 'Unlock which door?');

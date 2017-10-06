@@ -6,6 +6,7 @@ module.exports = srcPath => {
   return {
     usage: 'bug <description>',
     aliases: ['typo', 'suggestion'],
+    options: {},
     command: state => (args, player, arg0) => {
       if (!args) {
         return Broadcast.sayAt(player, '<b><yellow>Please describe the bug you have found.</yellow></b>');

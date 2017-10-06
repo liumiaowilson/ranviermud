@@ -8,6 +8,7 @@ module.exports = srcPath => {
 
   return {
     usage: 'scan',
+    options: {},
     command: state => (args, player) => {
       for (const exit of player.room.exits) {
         const room = state.RoomManager.getRoom(exit.roomId);

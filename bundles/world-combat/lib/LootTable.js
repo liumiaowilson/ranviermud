@@ -12,7 +12,7 @@ let loadedPools = {};
  */
 class LootTable {
   /**
-   * See bundles/ranvier-areas/areas/limbo/npcs.yml for example of usage
+   * See bundles/world-areas/areas/limbo/npcs.yml for example of usage
    * @param {Array<PoolReference|Object>} config.pools List of pool references or pool definitions
    */
   constructor(state, config) {

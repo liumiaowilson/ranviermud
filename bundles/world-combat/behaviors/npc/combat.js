@@ -51,7 +51,7 @@ module.exports = (srcPath) => {
         }
       }
 
-      // refer to bundles/ranvier-combat/player-events.js for a further list of combat events
+      // refer to bundles/world-combat/player-events.js for a further list of combat events
     }
   };
 };

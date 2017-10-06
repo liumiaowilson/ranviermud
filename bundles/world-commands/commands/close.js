@@ -11,7 +11,7 @@ module.exports = (srcPath, bundlePath) => {
     options: (state, player) => {
       let options = {};
 
-      let keywords = SearchUtil.listKeywordsOfItems(player);
+      let keywords = SearchUtil.listKeywordsOfItems(player, item => item.closeable && !item.closed);
       let words = SearchUtil.breakDown(keywords);
       words.forEach(word => {
         options[word] = {};

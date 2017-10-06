@@ -8,10 +8,11 @@ const srcPath = '../../../src/'
 
 /**
  * List keywords of the list
- * @param List list
- * @return List
+ * @param {List} list
+ * @param {Function} predicate
+ * @return {List}
  */
-function listKeywordsOfList(list) {
+function listKeywordsOfList(list, predicate) {
   let keywords = new Set();
   if(!list) {
     return keywords;
@@ -23,6 +24,10 @@ function listKeywordsOfList(list) {
       [key, entry] = entity;
     } else {
       entry = entity;
+    }
+
+    if(typeof predicate === "function" && !predicate(entry)) {
+      continue;
     }
 
     if(entry.keywords) {
@@ -41,9 +46,10 @@ exports.listKeywordsOfList = listKeywordsOfList;
 /**
  * List keywords around the player
  * @param {Player} player
- * @return List
+ * @param {Function} predicate
+ * @return {List}
  */
-function listKeywords(player) {
+function listKeywords(player, predicate) {
     let keywords = new Set();
     if(!player) {
       return keywords;
@@ -51,10 +57,10 @@ function listKeywords(player) {
 
     const room = player.room;
 
-    listKeywordsOfList(room.items).forEach(keyword => keywords.add(keyword));
-    listKeywordsOfList(room.players).forEach(keyword => keywords.add(keyword));
-    listKeywordsOfList(room.npcs).forEach(keyword => keywords.add(keyword));
-    listKeywordsOfList(player.inventory).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(room.items, predicate).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(room.players, predicate).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(room.npcs, predicate).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(player.inventory, predicate).forEach(keyword => keywords.add(keyword));
 
     return keywords;
 }
@@ -63,9 +69,10 @@ exports.listKeywords = listKeywords;
 /**
  * List keywords of the items around the player
  * @param {Player} player
- * @return List
+ * @param {Function} predicate
+ * @return {List}
  */
-function listKeywordsOfItems(player) {
+function listKeywordsOfItems(player, predicate) {
     let keywords = new Set();
     if(!player) {
       return keywords;
@@ -73,17 +80,37 @@ function listKeywordsOfItems(player) {
 
     const room = player.room;
 
-    listKeywordsOfList(room.items).forEach(keyword => keywords.add(keyword));
-    listKeywordsOfList(player.inventory).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(room.items, predicate).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(player.inventory, predicate).forEach(keyword => keywords.add(keyword));
 
     return keywords;
 }
 exports.listKeywordsOfItems = listKeywordsOfItems;
 
 /**
+ * List keywords of the items in the room around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {List}
+ */
+function listKeywordsOfRoomItems(player, predicate) {
+    let keywords = new Set();
+    if(!player) {
+      return keywords;
+    }
+
+    const room = player.room;
+
+    listKeywordsOfList(room.items, predicate).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfRoomItems = listKeywordsOfRoomItems;
+
+/**
  * break down the words
  * @param {List} words
- * @return List
+ * @return {List}
  */
 function breakDown(words) {
     let ret = new Set();

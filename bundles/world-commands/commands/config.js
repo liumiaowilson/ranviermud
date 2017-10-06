@@ -1,5 +1,9 @@
 'use strict';
 
+const COMMANDS = ['set', 'list'];
+const SETTINGS = ['autoloot', 'brief', 'minimap'];
+const VALUES = ['on', 'off'];
+
 module.exports = (srcPath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
@@ -8,13 +12,28 @@ module.exports = (srcPath) => {
   return {
     usage: 'config <set/list> [setting] [value]',
     aliases: ['toggle', 'options', 'set'],
+    options: (state, player) => {
+      let options = {};
+      COMMANDS.forEach(cmd => {
+        let settings = {};
+        if(cmd === 'set') {
+          SETTINGS.forEach(name => {
+            settings[name] = {};
+            VALUES.forEach(val => settings[name][val] = {});
+          });
+        }
+
+        options[cmd] = settings;
+      });
+      return options;
+    },
     command: (state) => (args, player) => {
       if (!args.length) {
         Broadcast.sayAt(player, 'Configure what?');
         return state.CommandManager.get('help').execute('config', player);
       }
 
-      const possibleCommands = ['set', 'list'];
+      const possibleCommands = COMMANDS;
 
       const [command, configToSet, valueToSet ] = args.split(' ');
 
@@ -37,7 +56,7 @@ module.exports = (srcPath) => {
         return state.CommandManager.get('help').execute('config', player);
       }
 
-      const possibleSettings = ['brief', 'autoloot', 'minimap'];
+      const possibleSettings = SETTINGS;
 
       if (!possibleSettings.includes(configToSet)) {
         Broadcast.sayAt(player, `<red>Invalid setting: ${configToSet}. Possible settings: ${possibleSettings.join(', ')}`);
@@ -71,4 +90,3 @@ module.exports = (srcPath) => {
     }
   };
 };
-

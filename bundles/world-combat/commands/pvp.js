@@ -6,6 +6,7 @@ module.exports = (srcPath) => {
   const Parser = require(srcPath + 'CommandParser').CommandParser;
 
   return {
+    options: {},
     command : (state) => (args, player) => {
       const previousPvpSetting = player.getMeta('pvp') || false;
       const newPvpSetting = !previousPvpSetting;

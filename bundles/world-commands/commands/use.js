@@ -10,7 +10,7 @@ module.exports = (srcPath, bundlePath) => {
   const Logger = require(srcPath + 'Logger');
   const { CommandParser } = require(srcPath + 'CommandParser');
   const SkillErrors = require(srcPath + 'SkillErrors');
-  const ItemUtil = require(bundlePath + 'ranvier-lib/lib/ItemUtil');
+  const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
 
   return {
     aliases: [ 'quaff', 'recite' ],

@@ -7,10 +7,18 @@ module.exports = (srcPath, bundlePath) => {
   const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
   const Logger = require(srcPath + 'Logger');
   const say = Broadcast.sayAt;
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     aliases: [ 'wield' ],
     usage: 'wear <item>',
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfInventoryItems(player, item => item.slot)
+          .forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
     command : (state) => (arg, player) => {
       arg = arg.trim();
 

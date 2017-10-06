@@ -2,9 +2,11 @@
 
 const sprintf = require('sprintf-js').sprintf;
 
-module.exports = srcPath => {
+module.exports = (srcPath, bundlePath) => {
   const B = require(srcPath + 'Broadcast');
   const CommandManager = require(srcPath + 'CommandManager');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
+  const SUBCOMMANDS = ['list', 'save', 'travel', 'home'];
 
   const subcommands = new CommandManager();
   subcommands.add({
@@ -105,6 +107,12 @@ module.exports = srcPath => {
 
   return {
     usage: 'waypoint list, save, travel #',
+    options: (state, player) => {
+      let options = {};
+      SUBCOMMANDS.forEach(cmd => options[cmd] = {});
+
+      return options;
+    },
     command: state => (args, player) => {
       if (!args || !args.length) {
         args = 'list';

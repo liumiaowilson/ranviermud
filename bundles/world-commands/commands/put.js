@@ -5,9 +5,20 @@ module.exports = (srcPath, bundlePath) => {
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const ItemType = require(srcPath + 'ItemType');
   const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   return {
     usage: 'put <item> <container>',
+    options: (state, player) => {
+      let options = {};
+      let itemKeywords = SearchUtil.listKeywordsOfInventoryItems(player);
+      let containerKeywords = SearchUtil.listKeywordsOfAllItems(player, item => item.type === ItemType.CONTAINER && !item.closed);
+      let containerOptions = {};
+      containerKeywords.forEach(keyword => containerOptions[keyword] = {});
+      itemKeywords.forEach(keyword => options[keyword] = containerOptions);
+
+      return options;
+    },
     command : (state) => (args, player) => {
       args = args.trim();
 
@@ -15,8 +26,8 @@ module.exports = (srcPath, bundlePath) => {
         return B.sayAt(player, 'Put what where?');
       }
 
-      // put 3.foo in bar -> put 3.foo bar -> put 3.foo into bar
-      const parts = args.split(' ').filter(arg => !arg.match(/in/) && !arg.match(/into/));
+      // put 3.foo bar
+      const parts = args.split(' ');
 
       if (parts.length === 1) {
         return B.sayAt(player, "Where do you want to put it?");

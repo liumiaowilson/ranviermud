@@ -1,0 +1,4 @@
+---
+command: teleport
+body: |
+  Teleport to a place or a player

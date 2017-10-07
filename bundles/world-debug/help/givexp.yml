@@ -1,0 +1,4 @@
+---
+command: givexp
+body: |
+  Give experience to yourself

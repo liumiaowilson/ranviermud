@@ -1,0 +1,4 @@
+---
+command: ipban
+body: |
+  Ban the ip of the online player

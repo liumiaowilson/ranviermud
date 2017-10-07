@@ -1,0 +1,4 @@
+---
+command: shutdown
+body: |
+  Shut down the system

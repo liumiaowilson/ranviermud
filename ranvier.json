@@ -24,7 +24,7 @@
     "ranvier-vendors",
     "ranvier-npc-behaviors",
     "ranvier-bug-report",
-    "debug-commands"
+    "world-debug"
   ],
   "maxAccountNameLength": 20,
   "minAccountNameLength": 3,

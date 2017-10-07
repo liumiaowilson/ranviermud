@@ -1,0 +1,4 @@
+---
+command: damage
+body: |
+  Apply a damage to yourself

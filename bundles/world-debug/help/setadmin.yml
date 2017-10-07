@@ -1,0 +1,4 @@
+---
+command: setadmin
+body: |
+  Set a player in the room to be the admin

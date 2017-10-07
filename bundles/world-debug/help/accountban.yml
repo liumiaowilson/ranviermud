@@ -1,0 +1,4 @@
+---
+command: accountban
+body: |
+  Ban the account of the online player

@@ -1,0 +1,4 @@
+---
+command: giveskill
+body: |
+  Give a passive skill to yourself

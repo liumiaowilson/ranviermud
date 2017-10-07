@@ -105,6 +105,41 @@ function listKeywordsOfTargets(player, predicate) {
 exports.listKeywordsOfTargets = listKeywordsOfTargets;
 
 /**
+ * List keywords of enemies around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {Set}
+ */
+function listKeywordsOfEnemies(player, predicate) {
+    let keywords = new Set();
+    if(!player || !player.room) {
+      return keywords;
+    }
+
+    const room = player.room;
+    const enemyPredicate = entity => {
+      if(entity === player) {
+        return false;
+      }
+
+      if(typeof predicate === "function") {
+        return predicate(entity);
+      }
+
+      return true;
+    };
+
+    if(player.getMeta('pvp')) {
+      listKeywordsOfList(room.players, enemyPredicate).forEach(keyword => keywords.add(keyword));
+    }
+
+    listKeywordsOfList(room.npcs, enemyPredicate).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfEnemies = listKeywordsOfEnemies;
+
+/**
  * List keywords of npcs around the player
  * @param {Player} player
  * @param {Function} predicate

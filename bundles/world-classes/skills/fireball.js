@@ -29,7 +29,7 @@ module.exports = (srcPath, bundlesPath) => {
 
     options: (state, player) => {
       let options = {};
-      SearchUtil.listKeywordsOfTargets(player).forEach(keyword => options[keyword] = {});
+      SearchUtil.listKeywordsOfEnemies(player).forEach(keyword => options[keyword] = {});
 
       return options;
     },

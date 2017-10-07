@@ -21,7 +21,7 @@ module.exports = (srcPath, bundlesPath) => {
       return options;
     },
     command : state => (args, player) => {
-      const [spellName, targetArgs] = args;
+      const [spellName, targetArgs] = args.split(' ');
       const spell = state.SpellManager.find(spellName);
 
       if (!spell) {

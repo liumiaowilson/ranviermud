@@ -13,12 +13,7 @@ module.exports = (srcPath, bundlePath) => {
     aliases: ['attack', 'slay'],
     options: (state, player) => {
       let options = {};
-      if(player.getMeta('pvp')) {
-        SearchUtil.listKeywordsOfTargets(player).forEach(keyword => options[keyword] = {});
-      }
-      else {
-        SearchUtil.listKeywordsOfNpcs(player).forEach(keyword => options[keyword] = {});
-      }
+      SearchUtil.listKeywordsOfEnemies(player).forEach(keyword => options[keyword] = {});
 
       return options;
     },

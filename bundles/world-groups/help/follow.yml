@@ -1,0 +1,4 @@
+---
+command: follow
+body: |
+  Start to follow another player. Use 'follow self' to stop following others.

@@ -1,0 +1,10 @@
+---
+command: group
+body: |
+  group list               List the group
+  group create             Create a group
+  group disband sure       Disband the group
+  group invite <player>    Invite a player to the group
+  group join <player>      Join the player's group
+  group decline <player>   Decline the player from joining the group
+  group leave              Leave the group

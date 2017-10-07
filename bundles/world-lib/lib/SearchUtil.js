@@ -180,6 +180,26 @@ function listKeywordsOfPlayers(player, predicate) {
 exports.listKeywordsOfPlayers = listKeywordsOfPlayers;
 
 /**
+ * List keywords of followers around the player
+ * @param {Player} player
+ * @param {Function} predicate
+ * @return {Set}
+ */
+function listKeywordsOfFollowers(player, predicate) {
+    let keywords = new Set();
+    if(!player || !player.room) {
+      return keywords;
+    }
+
+    const room = player.room;
+
+    listKeywordsOfList(player.followers, predicate).forEach(keyword => keywords.add(keyword));
+
+    return keywords;
+}
+exports.listKeywordsOfFollowers = listKeywordsOfFollowers;
+
+/**
  * List keywords of the items around the player
  * @param {Player} player
  * @param {Function} predicate

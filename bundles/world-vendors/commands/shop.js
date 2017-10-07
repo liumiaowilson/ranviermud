@@ -10,6 +10,7 @@ module.exports = (srcPath, bundlePath) => {
   const ItemType = require(srcPath + 'ItemType');
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const ItemUtil = require(bundlePath + 'world-lib/lib/ItemUtil');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   const subcommands = new CommandManager();
   subcommands.add({
@@ -189,6 +190,27 @@ module.exports = (srcPath, bundlePath) => {
   return {
     aliases: [ 'vendor', 'list', 'buy', 'sell', 'value', 'appraise', 'offer' ],
     usage: 'list [search], buy <item>, sell <item>, appraise <item>',
+    options: (state, player) => {
+      let options = {};
+
+      let listOptions = {};
+      const vendor = Array.from(player.room.npcs).find(npc => npc.hasBehavior('vendor'));
+      if(vendor) {
+        let vendorConfig = vendor.getBehavior('vendor');
+        let items = getVendorItems(state, vendorConfig.items);
+        SearchUtil.listKeywordsOfList(items).forEach(keyword => listOptions[keyword] = {});
+      }
+
+      let inventoryOptions = {};
+      SearchUtil.listKeywordsOfInventoryItems(player).forEach(keyword => inventoryOptions[keyword] = {});
+
+      options["list"] = listOptions;
+      options["buy"] = listOptions;
+      options["sell"] = inventoryOptions;
+      options["value"] = inventoryOptions;
+
+      return options;
+    },
     command: state => (args, player, arg0) => {
       // if list/buy aliases were used then prepend that to the args
       args = (!['vendor', 'shop'].includes(arg0) ? arg0 + ' ' : '') + args;

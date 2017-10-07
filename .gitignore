@@ -20,3 +20,4 @@ site/
 
 # ignore api.ai key
 bundles/ranvier-npc-behaviors/APIAIKEY
+bundles/world-npc-behaviors/APIAIKEY

@@ -527,7 +527,7 @@ class BundleManager {
 
       const skillName = path.basename(skillFile, path.extname(skillFile));
       const loader = require(skillPath);
-      let skillImport = loader(srcPath);
+      let skillImport = loader(srcPath, bundlesPath);
       if (skillImport.run) {
         skillImport.run = skillImport.run(this.state);
       }

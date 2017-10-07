@@ -5,9 +5,10 @@ const Combat = require('../../ranvier-combat/lib/Combat');
 /**
  * DoT (Damage over time) skill
  */
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlesPath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const SkillType = require(srcPath + 'SkillType');
+  const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
 
   // config placed here just for easy copy/paste of this skill later on
   const attribute = 'strength';
@@ -31,6 +32,13 @@ module.exports = (srcPath) => {
       cost,
     },
     cooldown,
+
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfTargets(player, target => target !== player).forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
 
     run: state => function (args, player, target) {
       const effect = state.EffectFactory.create(

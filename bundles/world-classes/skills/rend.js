@@ -1,6 +1,6 @@
 'use strict';
 
-const Combat = require('../../ranvier-combat/lib/Combat');
+const Combat = require('../../world-combat/lib/Combat');
 
 /**
  * DoT (Damage over time) skill

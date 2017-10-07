@@ -4,7 +4,7 @@ const leftPad = require('left-pad');
 const Combat = require('./lib/Combat');
 const CombatErrors = require('./lib/CombatErrors');
 const LevelUtil = require('../world-lib/lib/LevelUtil');
-const WebsocketStream = require('../ranvier-websocket/lib/WebsocketStream');
+const WebsocketStream = require('../world-websocket/lib/WebsocketStream');
 
 /**
  * Auto combat module
@@ -164,7 +164,7 @@ module.exports = (srcPath) => {
         if (damage.critical) {
           buf += ' <red><b>(Critical)</b></red>';
         }
-        
+
         B.sayAt(this, buf);
 
         // show damage to party members

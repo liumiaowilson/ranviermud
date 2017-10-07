@@ -64,7 +64,7 @@ module.exports = (srcPath, bundlePath) => {
 };
 
 /**
- * Uses effect from ranvier-effects/effects/equip.js
+ * Uses effect from world-effects/effects/equip.js
  */
 function createAttributeEffect(state, player, slot, stats) {
   const config = {

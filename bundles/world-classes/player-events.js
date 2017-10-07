@@ -1,7 +1,7 @@
 'use strict';
 
-const Combat = require('../ranvier-combat/lib/Combat');
-const CombatErrors = require('../ranvier-combat/lib/CombatErrors');
+const Combat = require('../world-combat/lib/Combat');
+const CombatErrors = require('../world-combat/lib/CombatErrors');
 const humanize = (sec) => { return require('humanize-duration')(sec, { round: true }); };
 
 module.exports = srcPath => {

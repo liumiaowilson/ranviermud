@@ -2,7 +2,7 @@
 
 const humanize = (sec) => { return require('humanize-duration')(sec, { round: true }); };
 /**
- * Command for items with `usable` behavior. See bundles/ranvier-areas/areas/limbo/items.yml for
+ * Command for items with `usable` behavior. See bundles/world-areas/areas/limbo/items.yml for
  * example behavior implementation
  */
 module.exports = (srcPath, bundlePath) => {

@@ -1,10 +1,11 @@
 'use strict';
 
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlePath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const say = Broadcast.sayAt;
   const Parser = require(srcPath + 'CommandParser').CommandParser;
   const CommandManager = require(srcPath + 'CommandManager');
+  const SearchUtil = require(bundlePath + 'world-lib/lib/SearchUtil');
 
   const subcommands = new CommandManager();
   subcommands.add({
@@ -151,6 +152,17 @@ module.exports = (srcPath) => {
 
   return {
     usage: 'quest <log/list/complete/start> [npc] [number]',
+    options: (state, player) => {
+      let options = {};
+      let npcOptions = {};
+      SearchUtil.listKeywordsOfNpcs(player).forEach(keyword => npcOptions[keyword] = {});
+      options["list"] = npcOptions;
+      options["start"] = npcOptions;
+      options["complete"] = {};
+      options["log"] = {};
+
+      return options;
+    },
     command : (state) => (args, player) => {
       if (!args.length) {
         return say(player, "Missing command. See 'help quest'");

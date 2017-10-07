@@ -52,7 +52,7 @@ commander
   .option('-s, --save [time]', 'Number of seconds between auto-save ticks [10]', 10)
   .option('-r, --respawn [time]', 'Number of minutes between respawn ticks [120]', 120)
   .option('-p, --port [portNumber]', 'Port to host the server [23]', Config.get('port', 23))
-  .option('-v, --verbose', 'Verbose console logging.', true)
+  .option('-v, --verbose', 'Verbose console logging.', false)
   .option('-e, --prettyErrors', 'Pretty-print formatting for error stack traces.', false)
   .parse(process.argv);
 
@@ -74,7 +74,7 @@ if (commander.prettyErrors) {
 // Set logging level based on CLI option or environment variable.
 const logLevel = commander.verbose ?
   'verbose' :
-  process.env.LOG_LEVEL || Config.get('logLevel') || 'debug';
+  process.env.LOG_LEVEL || Config.get('logLevel') || 'info';
 Logger.setLevel(logLevel);
 
 

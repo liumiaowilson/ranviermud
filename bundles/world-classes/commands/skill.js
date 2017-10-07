@@ -1,11 +1,19 @@
 'use strict';
 
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlesPath) => {
   const B = require(srcPath + 'Broadcast');
   const SkillFlag = require(srcPath + 'SkillFlag');
+  const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
 
   return {
     aliases: [ "spell" ],
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listSkillIds(player, state).forEach(skillId => options[skillId] = {});
+      SearchUtil.listSpellIds(player, state).forEach(spellId => options[spellId] = {});
+
+      return options;
+    },
     command : state => (args, player) => {
       const say = (message, wrapWidth) => B.sayAt(player, message, wrapWidth);
 
@@ -29,7 +37,7 @@ module.exports = (srcPath) => {
         say(`<b>Usage</b>: ${skill.id}`);
       }
 
-      if (skill.resource.cost) {
+      if (skill.resource && skill.resource.cost) {
         say(`<b>Cost</b>: <b>${skill.resource.cost}</b> ${skill.resource.attribute}`);
       }
 
@@ -41,5 +49,3 @@ module.exports = (srcPath) => {
     }
   };
 };
-
-

@@ -3,10 +3,11 @@
 /**
  * Basic mage spell
  */
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlesPath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Damage = require(srcPath + 'Damage');
   const SkillType = require(srcPath + 'SkillType');
+  const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
 
   const damagePercent = 100;
   const manaCost = 20;
@@ -25,6 +26,13 @@ module.exports = (srcPath) => {
       cost: manaCost,
     },
     cooldown: 10,
+
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfTargets(player).forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
 
     run: state => function (args, player, target) {
       const damage = new Damage({

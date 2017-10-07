@@ -8,6 +8,7 @@ module.exports = srcPath => {
 
   return {
     aliases: ['abilities', 'spells'],
+    options: {},
     command: state => (args, player) => {
       const say = message => B.sayAt(player, message);
       say("<b>" + B.center(80, 'Abilities', 'green'));

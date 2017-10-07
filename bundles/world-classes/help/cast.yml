@@ -1,0 +1,4 @@
+---
+command: cast
+body: |
+  Cast the spell against the target.

@@ -1,17 +1,27 @@
 'use strict';
 
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlesPath) => {
   const Broadcast = require(srcPath + 'Broadcast');
+  const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
 
   return {
-    command : state => (args, player) => {
-      // match cast "fireball" target
-      const match = args.match(/^(['"])([^\1]+)+\1(?:$|\s+(.+)$)/);
-      if (!match) {
-        return Broadcast.sayAt(player, "Casting spells must be surrounded in quotes e.g., cast 'fireball' target");
-      }
+    usage: "cast <spell> <target>",
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listSpellIds(player, state).forEach(spellId => {
+        let spell = state.SpellManager.get(spellId);
+        if(typeof spell.options === "function") {
+          options[spellId] = spell.options(state, player);
+        }
+        else {
+          options[spellId] = spell.options;
+        }
+      });
 
-      const [ , , spellName, targetArgs] = match;
+      return options;
+    },
+    command : state => (args, player) => {
+      const [spellName, targetArgs] = args;
       const spell = state.SpellManager.find(spellName);
 
       if (!spell) {

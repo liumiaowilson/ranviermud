@@ -36,7 +36,7 @@ module.exports = (srcPath, bundlePath) => {
         return say(player, `You can't wear ${ItemUtil.display(item)}.`);
       }
 
-      if (item.level > player.level) {
+      if (item.properties.level > player.level) {
         return say(player, "You can't use that yet.");
       }
 

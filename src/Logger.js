@@ -54,6 +54,30 @@ class Logger {
     winston.log('verbose', ...messages);
   }
 
+  /*
+    Debug the messages
+  */
+  static debug(...messages) {
+    let pretty = messages.map(message => {
+      if(typeof message === "string") {
+        return message;
+      }
+      else if(!message) {
+        return message;
+      }
+      else if(typeof message.serialize === "function") {
+        return JSON.stringify(message.serialize());
+      }
+      else if(message.construtor === Object) {
+        return JSON.stringify(message);
+      }
+      else {
+        return new String(message);
+      }
+    });
+    winston.log('verbose', ...pretty);
+  }
+
   //TODO: Be able to set and deactivate file logging via a server command.
   static setFileLogging(filename) {
     filename = logDir + filename;

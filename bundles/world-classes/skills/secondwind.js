@@ -19,6 +19,8 @@ module.exports = (srcPath) => {
     effect: "skill.secondwind",
     cooldown: interval,
 
+    options: {},
+
     configureEffect: effect => {
       effect.state = Object.assign(effect.state, {
         threshold: threshold,

@@ -2,11 +2,12 @@
 
 const Combat = require('../../ranvier-combat/lib/Combat');
 
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlesPath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const SkillType = require(srcPath + 'SkillType');
   const Damage = require(srcPath + 'Damage');
   const Heal = require(srcPath + 'Heal');
+  const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
 
   // config placed here just for easy copy/paste of this skill later on
   const cooldown = 10;
@@ -22,6 +23,13 @@ module.exports = (srcPath) => {
       cost: favorAmount
     },
     cooldown,
+
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfTargets(player, target => target !== player).forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
 
     run: state => function (args, player, target) {
       if (!player.equipment.has('wield')) {

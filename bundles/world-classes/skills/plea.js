@@ -3,9 +3,10 @@
 /**
  * Basic cleric spell
  */
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlesPath) => {
   const Broadcast = require(srcPath + 'Broadcast');
   const Heal = require(srcPath + 'Heal');
+  const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
 
   const healPercent = 20;
   const favorCost = 5;
@@ -22,6 +23,13 @@ module.exports = (srcPath) => {
       cost: favorCost,
     },
     cooldown,
+
+    options: (state, player) => {
+      let options = {};
+      SearchUtil.listKeywordsOfTargets(player).forEach(keyword => options[keyword] = {});
+
+      return options;
+    },
 
     run: state => function (args, player, target) {
       const maxHealth = target.getMaxAttribute('health');

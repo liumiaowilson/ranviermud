@@ -14,7 +14,7 @@ module.exports = (srcPath) => {
   const healthPercent = 15;
   const duration = 20 * 1000;
 
-  
+
   return {
     name: 'Shield Block',
     type: SkillType.SKILL,
@@ -24,6 +24,8 @@ module.exports = (srcPath) => {
       cost,
     },
     cooldown,
+
+    options: {},
 
     run: state => function (args, player, target) {
       if (!player.equipment.has('shield')) {
@@ -54,4 +56,3 @@ module.exports = (srcPath) => {
     }
   };
 };
-

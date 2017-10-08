@@ -314,7 +314,9 @@ function listExitNames(player, predicate) {
       return names;
     }
 
-    Array.from(player.room.exits).forEach(exit => {
+    const room = player.room;
+
+    Array.from(room.exits).forEach(exit => {
       if(exit.direction) {
         if(typeof predicate === "function" && !predicate(exit)) {
           return;
@@ -322,6 +324,26 @@ function listExitNames(player, predicate) {
         names.add(exit.direction);
       }
     });
+
+    if(room.coordinates) {
+      const coords = room.coordinates;
+      const area = room.area;
+      const directions = {
+        north: [0, 1, 0],
+        south: [0, -1, 0],
+        east: [1, 0, 0],
+        west: [-1, 0, 0],
+        up: [0, 0, 1],
+        down: [0, 0, -1],
+      };
+
+      for (const [dir, diff] of Object.entries(directions)) {
+        let nextRoom = area.getRoomAtCoordinates(coords.x + diff[0], coords.y + diff[1], coords.z + diff[2]);
+        if(nextRoom) {
+          names.add(dir);
+        }
+      }
+    }
 
     return names;
 }

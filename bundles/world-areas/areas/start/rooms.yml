@@ -1,0 +1,159 @@
+- id: room_home
+  title: 简陋的小木屋
+  description: "这是一个非常简陋的木屋，几乎没有什么家具."
+  npcs: ["start:npc_toddler" ]
+  items:
+    - id: "start:item_wooden_chest"
+      respawnChance: 20
+      replaceOnRespawn: true # when this chest respawns completely replace it so its contents get refreshed
+  script: "script_room_home"
+  exits:
+    - roomId: "start:room_black_room"
+      direction: east
+      leaveMessage: "迈进了一个暗暗的屋子."
+    - roomId: "start:room_waypoint"
+      direction: down
+    - roomId: "start:room_shop"
+      direction: west
+    - roomId: "wild:room_start"
+      direction: north
+- id: room_black_room
+  title: "阴暗的屋子"
+  description: >-
+    一个非常阴暗的屋子，似乎没有光可以进来
+  script: "script_room_black_room"
+  items:
+    - id: "start:item_dirty_meat"
+      respawnChance: 30
+  npcs: ["start:npc_old_man", "start:npc_puppy"]
+  exits:
+    - roomId: "start:room_home"
+      direction: west
+      leaveMessage: "进入了明亮的房间."
+    - roomId: "start:room_training_room_home"
+      direction: east
+- &trainingroom
+  id: room_training_room_home
+  title: "训练场"
+  script: "script_room_training_room_home"
+  description: >-
+    一眼望去全是庄稼，然而不时可以看到一些野生动物在搞破坏.
+  npcs:
+    - id: "start:npc_boar"
+      respawnChance: 25
+      maxLoad: 3
+  exits:
+    - roomId: "start:room_black_room"
+      direction: west
+    - roomId: "start:room_training_room_1"
+      direction: north
+    - roomId: "start:room_training_room_3"
+      direction: east
+- <<: *trainingroom
+  id: room_training_room_1
+  items:
+    - id: "start:item_green_plant"
+      respawnChance: 30
+  npcs:
+    - id: "start:npc_boar"
+      respawnChance: 25
+      maxLoad: 3
+    - id: "start:npc_aggro_boar"
+      respawnChance: 25
+      maxLoad: 1
+  exits:
+    - roomId: "start:room_training_room_home"
+      direction: south
+    - roomId: "start:room_training_room_2"
+      direction: east
+- <<: *trainingroom
+  id: room_training_room_2
+  items:
+    - id: "start:item_red_rose"
+      respawnChance: 15
+  exits:
+    - roomId: "start:room_training_room_1"
+      direction: west
+    - roomId: "start:room_training_room_3"
+      direction: south
+    - roomId: "start:room_training_room_boss"
+      direction: north
+- <<: *trainingroom
+  id: room_training_room_3
+  npcs:
+    - id: "start:npc_boar"
+      respawnChance: 25
+      maxLoad: 3
+    - id: "start:npc_stupid_boar"
+      respawnChance: 50
+      maxLoad: 2
+  exits:
+    - roomId: "start:room_training_room_home"
+      direction: west
+    - roomId: "start:room_training_room_2"
+      direction: north
+- id: room_training_room_boss
+  title: "Boss训练场"
+  description: >-
+    这个地方充满了危险的气息.
+  npcs:
+    - id: "start:npc_boar_boss"
+      respawnChance: 50
+  exits:
+    - roomId: "start:room_training_room_2"
+      direction: south
+- id: room_waypoint
+  title: "驿站"
+  description: >
+    这里有一个驿站，你可以用<b><cyan>waypoint</cyan></b>来使用.
+  script: 'script_room_waypoint'
+  behaviors:
+    waypoint: true
+  exits:
+    - roomId: "start:room_home"
+      direction: up
+    - roomId: "start:room_special"
+      direction: down
+- id: room_shop
+  title: "老王的店铺"
+  description: >-
+    这是老王开的店铺，里面有各种东西出售.
+  npcs:
+    - id: "start:npc_shop_owner"
+      respawnChance: 0
+  exits:
+    - roomId: "start:room_home"
+      direction: east
+- id: room_special
+  title: "诡异的屋子"
+  script: 'script_room_special'
+  description: >-
+    这个屋子可以使用特殊的命令<b><cyan>damn</cyan></b>.
+  behaviors:
+    commands: [ 'damn' ]
+  items:
+    - id: "start:item_key"
+  exits:
+    - roomId: "start:room_waypoint"
+      direction: up
+    - roomId: "start:room_locked"
+      direction: east
+  doors:
+    "start:room_waypoint":
+      lockedWith: false
+      closed: true
+- id: room_locked
+  title: "上锁的屋子"
+  description: 这个屋子需要钥匙才能进
+  items:
+    - id: "start:item_locked_chest"
+      respawnChance: 5
+      replaceOnRespawn: true
+  exits:
+    - roomId: "start:room_special"
+      direction: west
+  doors:
+    "start:room_special":
+      lockedBy: "start:item_key"
+      locked: true
+      closed: true

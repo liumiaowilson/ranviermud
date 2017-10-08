@@ -1,0 +1,138 @@
+- id: npc_toddler
+  keywords: ['toddler']
+  name: 小毛孩
+  level: 2
+  description: "小毛孩很着急的到处跑来跑去."
+  script: 'script_npc_toddler'
+  items: ['start:item_dirty_meat']
+  quests: ['start:quest_find_my_meat']
+  behaviors:
+    combat: true
+    world-wander:
+      interval: 20
+      restrictTo: ['start:room_home', 'start:room_black_room', 'start:room_training_room_home']
+  attributes:
+    health: 100
+    energy: 100
+- id: npc_old_man
+  keywords: ["old", "man"]
+  name: "老人"
+  level: 99
+  script: 'script_npc_old_man'
+  pacifist: true
+  description: "一个老人坐在地上，腿盘着."
+  behaviors:
+    world-sentient: true
+- id: npc_puppy
+  keywords: ["puppy"]
+  name: 小狗
+  description: "一只小狗朝你汪汪的叫."
+  pacifist: true
+  level: 1
+  script: 'script_npc_puppy'
+- id: npc_boar
+  keywords: ["boar"]
+  level: 2
+  name: "小野猪"
+  attributes:
+    health: 100
+    strength: 10
+  behaviors:
+    combat: true
+    lootable:
+      # currencies is a list of currencies this npc can possibly drop and the amount range
+      # the currency key is arbitrary so if you want a new currency just add a new key
+      # the key must be formatted_like_this though, for rendering/saving purposes
+      currencies:
+        gold:
+          min: 10
+          max: 20
+      # pools is a list of either a `"itemEntityReference": dropChance` or a name of a loot pool entry
+      # defined in the loot-pools.yml. This lets you do things like having a 'global' loot pool that every
+      # npc in the area can drop
+      pools:
+        - "start:boar_junk"
+        - "start:boar_potions"
+        - "start:item_dirty_meat": 25
+  description: >-
+    小野猪在不停的糟蹋庄稼，要赶紧消灭它们.
+- id: npc_aggro_boar
+  keywords: ["boar", "aggro"]
+  level: 2
+  name: "狂暴的小野猪"
+  description: >-
+    这只小野猪对你充满了敌意，小心.
+  attributes:
+    health: 120
+    strength: 12
+  behaviors:
+    combat: true
+    world-aggro:
+      delay: 5
+- id: npc_stupid_boar
+  keywords: ["stupid", "boar"]
+  level: 2
+  name: "蠢萌的小野猪"
+  description: >-
+    这只小野猪只会傻傻的攻击其他的小野猪.
+  attributes:
+    health: 100
+    strength: 15
+  behaviors:
+    combat: true
+    world-aggro:
+      delay: 5
+      towards:
+        players: false
+        npcs: ["start:npc_stupid_boar"]
+- id: npc_boar_boss
+  keywords: ["boss", "boar"]
+  name: "大野猪"
+  level: 5
+  description: >-
+    这只野猪明显比其他野猪大，更加充满了敌意.
+  attributes:
+    health: 200
+    strength: 15
+  behaviors:
+    combat: true
+    lootable:
+      currencies:
+        gold:
+          min: 50
+          max: 100
+      pools:
+        - "start:boar_potions"
+        - "start:item_training_sword": 100
+        - "start:item_blade": 5
+- id: npc_shop_owner
+  keywords: ["shop"]
+  name: "老王"
+  description: >-
+    老王喜欢卖各种东西.
+  level: 99
+  pacifist: true
+  behaviors:
+    world-sentient: true
+    vendor:
+      items:
+        "start:item_training_sword":
+          cost: 30
+          currency: gold
+        "start:item_leather_vest":
+          cost: 30
+          currency: gold
+        "start:item_wooden_shield":
+          cost: 30
+          currency: gold
+        "start:item_potion_health_small":
+          cost: 100
+          currency: gold
+        "start:item_potion_strength_small":
+          cost: 150
+          currency: gold
+        "start:item_blade":
+          cost: 99999
+          currency: gold
+      enterMessage: "来来来，我这里有好东西啊!"
+      leaveMessage: "下次再来啊!"

@@ -32,7 +32,7 @@
   "maxCharacters": 3,
   "allowMultiplay": false,
   "reportToAdmins": false,
-  "startingRoom": "limbo:1",
+  "startingRoom": "start:room_home",
   "moveCommand": "move",
   "skillLag": 2000,
   "defaultMaxPlayerInventory": 16,

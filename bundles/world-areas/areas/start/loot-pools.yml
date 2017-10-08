@@ -1,0 +1,6 @@
+---
+boar_potions:
+  - "start:item_potion_health_small": 10
+  - "start:item_potion_strength_small": 5
+boar_junk:
+  - "start:item_boar_scraps": 50

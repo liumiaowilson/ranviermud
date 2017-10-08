@@ -1,0 +1,10 @@
+---
+- id: npc_squirrel
+  keywords: ['squirrel']
+  name: 松鼠
+  level: 2
+  description: "一只毛绒绒的松鼠"
+  behaviors:
+    world-wander:
+      interval: 30
+      areaRestricted: true

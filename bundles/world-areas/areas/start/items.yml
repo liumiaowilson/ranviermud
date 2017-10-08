@@ -1,0 +1,223 @@
+- id: item_dirty_meat
+  name: "脏脏的肉"
+  roomDesc: "一块粘了土的肉"
+  keywords: [ "meat", "dirty" ]
+  description: "一块小小的带着泥土的肉，看上去非常没有食欲."
+  behaviors:
+    decay:
+      duration: 240
+- id: item_wooden_chest
+  type: CONTAINER
+  name: "木箱子"
+  roomDesc: "墙角里有一个破旧的木箱子."
+  keywords: [ "wooden", "chest" ]
+  description: "这个木箱子上面堆满了灰尘，似乎好久都没有打开过了."
+  items: [ "start:item_rusty_sword", "start:item_leather_vest", "start:item_potion_health_small", "start:item_potion_strength_small" ]
+  closed: true
+  maxItems: 5
+  properties:
+    noPickup: true
+- id: item_rusty_sword
+  name: "生锈的铁剑"
+  type: WEAPON
+  roomDesc: "锈迹斑斑的铁剑"
+  keywords: [ "sword", "rusty" ]
+  description: "这把铁剑上面已经锈迹斑斑，不知道还能不能割开什么."
+  slot: 'wield'
+  properties:
+    level: 1
+    itemLevel: 1
+    quality: common
+    minDamage: 7
+    maxDamage: 15
+    speed: 2.8
+    stats:
+      critical: 1
+- id: item_leather_vest
+  name: "皮甲"
+  type: ARMOR
+  roomDesc: "皮革做的护甲"
+  keywords: ["leather", "vest"]
+  description: "薄薄的皮革制护甲，聊胜于无."
+  slot: "chest"
+  properties:
+    quality: common
+    level: 1
+    itemLevel: 1
+    stats:
+      armor: 20
+  behaviors:
+    sellable:
+      value: 30
+      currency: gold
+- id: item_potion_health_small
+  name: "小红瓶"
+  roomDesc: "一个小小的红瓶子"
+  keywords: [ "potion", "health" ]
+  type: POTION
+  properties:
+    level: 1
+  behaviors:
+    # usable has two variants: spell, and effect
+    usable:
+      # this is the spell variant, you specify a skill of type SPELL
+      spell: "potion"
+      # charges/destroyOnDepleted lets you create consumable items
+      # without specifying charges the item can be used forever
+      charges: 5
+      destroyOnDepleted: true
+      # cooldown before item can be used again
+      cooldown: 30
+      # spell configuration, spell can access it via this.options
+      options:
+        restores: 30
+        stat: "health"
+- id: item_potion_strength_small
+  name: "小蓝瓶"
+  roomDesc: "味道奇怪的小蓝瓶"
+  keywords: [ "potion", "strength" ]
+  type: POTION
+  properties:
+    level: 1
+  behaviors:
+    usable:
+      # this is the effect variant, you specify an effect name instead of a spell
+      effect: "potion.buff"
+      charges: 2
+      destroyOnDepleted: true
+      # effect config, see Effect docs. `name` is auto-populated with the item name
+      config:
+        description: "增加力量<b>10</b>点，持续<b>15</b>秒"
+        duration: 15000
+      # effect state, see Effect docs
+      state:
+        magnitude: 10
+        stat: "strength"
+- id: item_boar_scraps
+  name: "野猪皮"
+  quality: poor
+  roomDesc: "野猪身上的皮"
+  keywords: [ "scraps" ]
+  description: "散乱劣质的野猪皮"
+  behaviors:
+    sellable:
+      value: 5
+      currency: gold
+- id: item_green_plant
+  name: "绿色植物"
+  type: RESOURCE
+  roomDesc: "几株绿色植物"
+  keywords: [ "green", "plant", "resource" ]
+  description: "一些奇怪的植物，你可以用<b><cyan>gather</cyan></b>来采集它们."
+  properties:
+    level: 1
+    itemLevel: 1
+    quality: common
+    noPickup: true
+  behaviors:
+    resource:
+      depletedMessage: "枯萎了."
+      materials:
+        plant_material:
+          min: 1
+          max: 3
+- id: item_red_rose
+  name: "红玫瑰"
+  type: RESOURCE
+  roomDesc: "红色的玫瑰"
+  keywords: [ "red", "rose", "resource" ]
+  description: "鲜艳的红色玫瑰，你可以用<b><cyan>gather</cyan></b>来采集它们."
+  properties:
+    level: 1
+    itemLevel: 1
+    quality: uncommon
+    noPickup: true
+  behaviors:
+    resource:
+      depletedMessage: "枯萎了."
+      materials:
+        plant_material:
+          min: 2
+          max: 3
+        rose_petal:
+          min: 1
+          max: 2
+- id: item_training_sword
+  name: "学徒之剑"
+  type: WEAPON
+  roomDesc: "一把给初学者使用的长剑"
+  keywords: ["sword", "training"]
+  description: "这把剑就比较像样了."
+  slot: "wield"
+  properties:
+    quality: rare
+    itemLevel: 10
+    level: 5
+    minDamage: 11
+    maxDamage: 20
+    speed: 2.8
+    stats:
+      strength: 2
+      stamina: 2
+      critical: -1
+  behaviors:
+    sellable:
+      value: 30
+      currency: gold
+- id: item_blade
+  name: "屠杀之剑"
+  type: WEAPON
+  roomDesc: "一把锋利的长剑"
+  keywords: ["blade"]
+  description: "这把剑闪着银色的光芒，充满了杀意."
+  slot: "wield"
+  script: "script_item_blade"
+  properties:
+    quality: epic
+    itemLevel: 15
+    level: 10
+    minDamage: 13
+    maxDamage: 26
+    speed: 2.8
+    specialEffects:
+      - "这把剑嗜血而屠杀，造成伤害时有机会恢复使用者的生命值."
+    stats:
+      strength: 2
+      stamina: 2
+      critical: 3
+- id: item_wooden_shield
+  name: "小木盾"
+  type: ARMOR
+  roomDesc: "小木盾"
+  keywords: ["shield", "wooden"]
+  description: "一个很有意思的小木盾."
+  slot: "shield"
+  properties:
+    quality: common
+    level: 1
+    itemLevel: 1
+    stats:
+      armor: 10
+  behaviors:
+    sellable:
+      value: 30
+      currency: gold
+- id: item_key
+  name: "奇怪的钥匙"
+  keywords: ["key"]
+  roomDesc: "一把看上去很奇怪的钥匙"
+  description: "这把钥匙可以开一些特别的东西."
+  properties:
+    quality: common
+- id: item_locked_chest
+  type: CONTAINER
+  name: "上锁的箱子"
+  roomDesc: "一个上锁的箱子."
+  keywords: [ "locked", "chest" ]
+  items: [ "start:item_rusty_sword" ]
+  closed: true
+  locked: true
+  lockedBy: "start:item_key"
+  maxItems: 5
+  properties:
+    noPickup: true

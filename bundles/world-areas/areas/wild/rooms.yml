@@ -1,0 +1,49 @@
+---
+- id: room_start
+  title: 荒野
+  coordinates: [0, 0, 0]
+  description: "你站在一片荒地."
+  npcs: [wild:npc_squirrel]
+- id: room_north_1
+  title: 荒野
+  coordinates: [0, 1, 0]
+  description: "你站在一片荒地."
+- id: room_north_2
+  title: 荒野
+  coordinates: [0, 2, 0]
+  description: "你站在一片荒地."
+- id: room_north_2_basement
+  title: 地下室
+  coordinates: [0, 2, -1]
+  description: "一个小的地下室."
+  doors:
+    "wild:room_north_2":
+      closed: true
+- id: room_south_1
+  title: 荒野
+  coordinates: [0, -1, 0]
+  description: "你站在一片荒地."
+- id: room_south_2
+  title: 荒野
+  coordinates: [0, -2, 0]
+  description: "你站在一片荒地."
+- id: room_hill
+  title: 小山包
+  coordinates: [0, -2, 1]
+  description: "一个小山包."
+  # explicitly defined exit to leave the area
+  exits:
+    - direction: east
+      roomId: "start:room_home"
+- id: room_east_1
+  title: 荒野
+  coordinates: [1, 0, 0]
+  description: "你站在一片荒地."
+- id: room_east_2
+  title: 荒野
+  coordinates: [2, 0, 0]
+  description: "你站在一片荒地."
+- id: room_east_3
+  title: 荒野
+  coordinates: [2, -1, 0]
+  description: "你站在一片荒地."

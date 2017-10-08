@@ -24,7 +24,7 @@ module.exports = (srcPath, bundlesPath) => {
     },
     cooldown,
 
-    options: (state, player) => {
+    commandOptions: (state, player) => {
       let options = {};
       SearchUtil.listKeywordsOfEnemies(player).forEach(keyword => options[keyword] = {});
 

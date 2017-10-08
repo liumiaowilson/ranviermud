@@ -22,7 +22,7 @@ module.exports = (srcPath, bundlesPath) => {
     initiatesCombat: true,
     cooldown,
 
-    options: (state, player) => {
+    commandOptions: (state, player) => {
       let options = {};
       SearchUtil.listKeywordsOfEnemies(player).forEach(keyword => options[keyword] = {});
 

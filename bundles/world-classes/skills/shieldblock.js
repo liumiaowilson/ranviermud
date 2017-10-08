@@ -25,7 +25,7 @@ module.exports = (srcPath) => {
     },
     cooldown,
 
-    options: {},
+    commandOptions: {},
 
     run: state => function (args, player, target) {
       if (!player.equipment.has('shield')) {

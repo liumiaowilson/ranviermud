@@ -36,7 +36,8 @@ class Skill {
       run = _ => {},
       targetSelf = false,
       type = SkillType.SKILL,
-      options = {}
+      options = {},
+      commandOptions = {}
     } = config;
 
     this.configureEffect = configureEffect;
@@ -48,6 +49,7 @@ class Skill {
     this.initiatesCombat = initiatesCombat;
     this.name = name;
     this.options = options;
+    this.commandOptions = commandOptions;
     this.requiresTarget = requiresTarget;
     this.resource = resource;
     this.run = run.bind(this);

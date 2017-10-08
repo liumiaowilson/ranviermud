@@ -37,11 +37,11 @@ module.exports = (srcPath) => {
         for (let [ name, skill ] of state.SkillManager.skills) {
           if(this.playerClass.hasAbility(skill.id) && this.playerClass.canUseAbility(this, skill.id)) {
             commands.push(name);
-            if(typeof skill.options === "function") {
-              commandOptions[name] = skill.options(state, this);
+            if(typeof skill.commandOptions === "function") {
+              commandOptions[name] = skill.commandOptions(state, this);
             }
             else {
-              commandOptions[name] = skill.options;
+              commandOptions[name] = skill.commandOptions;
             }
           }
         }

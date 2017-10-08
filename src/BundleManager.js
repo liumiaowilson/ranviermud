@@ -102,7 +102,7 @@ class BundleManager {
   loadPlayerEvents(bundle, eventsFile) {
     Logger.verbose(`\tLOAD: Player Events...`);
 
-    const playerListeners = require(eventsFile)(srcPath).listeners;
+    const playerListeners = require(eventsFile)(srcPath, bundlesPath).listeners;
 
     for (const [eventName, listener] of Object.entries(playerListeners)) {
       Logger.verbose(`\t\tEvent: ${eventName}`);

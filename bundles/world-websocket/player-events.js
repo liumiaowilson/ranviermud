@@ -1,6 +1,8 @@
 'use strict';
 
-module.exports = (srcPath) => {
+module.exports = (srcPath, bundlesPath) => {
+  const SkillUtil = require(bundlesPath + 'world-lib/lib/SkillUtil');
+
   return  {
     listeners: {
       updateTick: state => function () {
@@ -35,7 +37,7 @@ module.exports = (srcPath) => {
         }
 
         for (let [ name, skill ] of state.SkillManager.skills) {
-          if(this.playerClass.hasAbility(skill.id) && this.playerClass.canUseAbility(this, skill.id)) {
+          if(SkillUtil.canUseSkill(this, skill)) {
             commands.push(name);
             if(typeof skill.commandOptions === "function") {
               commandOptions[name] = skill.commandOptions(state, this);

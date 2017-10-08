@@ -10,11 +10,11 @@ module.exports = (srcPath, bundlesPath) => {
       let options = {};
       SearchUtil.listSpellIds(player, state).forEach(spellId => {
         let spell = state.SpellManager.get(spellId);
-        if(typeof spell.options === "function") {
-          options[spellId] = spell.options(state, player);
+        if(typeof spell.commandOptions === "function") {
+          options[spellId] = spell.commandOptions(state, player);
         }
         else {
-          options[spellId] = spell.options;
+          options[spellId] = spell.commandOptions;
         }
       });
 

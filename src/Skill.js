@@ -85,14 +85,17 @@ class Skill {
     }
 
     // allow skills to not incur the cooldown if they return false in run
-    if (this.run(args, player, target) !== false) {
+    let ret = this.run(args, player, target);
+    if (ret !== false) {
       this.cooldown(player);
       if (this.resource) {
         this.payResourceCosts(player);
       }
+      return true;
     }
-
-    return true;
+    else {
+      return false;
+    }
   }
 
   /**

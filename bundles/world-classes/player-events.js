@@ -4,20 +4,17 @@ const Combat = require('../world-combat/lib/Combat');
 const CombatErrors = require('../world-combat/lib/CombatErrors');
 const humanize = (sec) => { return require('humanize-duration')(sec, { round: true }); };
 
-module.exports = srcPath => {
+module.exports = (srcPath, bundlesPath) => {
   const B = require(srcPath + 'Broadcast');
   const Logger = require(srcPath + 'Logger');
   const SkillErrors = require(srcPath + 'SkillErrors');
+  const SkillUtil = require(bundlesPath + 'world-lib/lib/SkillUtil');
 
   return  {
     listeners: {
       useAbility: state => function (ability, args) {
-        if (!this.playerClass.hasAbility(ability.id)) {
-          return B.sayAt(this, 'Your class cannot use that ability.');
-        }
-
-        if (!this.playerClass.canUseAbility(this, ability.id)) {
-          return B.sayAt(this, 'You have not yet learned that ability.');
+        if(!SkillUtil.canUseSkill(this, ability) && !SkillUtil.canUseSpell(this, ability)) {
+          return B.sayAt(this, "You cannot use that ability.");
         }
 
         let target = null;
@@ -54,7 +51,12 @@ module.exports = srcPath => {
         }
 
         try {
-          ability.execute(args, this, target);
+          if(ability.execute(args, this, target)) {
+            let ret = SkillUtil.useSkill(this, ability);
+            if(ret) {
+              SkillUtil.useSpell(this, ability);
+            }
+          }
         } catch (e) {
           if (e instanceof SkillErrors.CooldownError) {
             return B.sayAt(this, `${ability.name} is on cooldown. ${humanize(e.effect.remaining)} remaining.`);

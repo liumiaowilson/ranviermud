@@ -1,0 +1,4 @@
+---
+command: acquire
+body: |
+  Acquire a skill or spell

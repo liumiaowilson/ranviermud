@@ -4,7 +4,8 @@
  * General functions used to faciliate searching
  */
 
-const srcPath = '../../../src/'
+const srcPath = '../../../src/';
+const SkillUtil = require('./SkillUtil');
 
 /**
  * List keywords of the list
@@ -362,17 +363,12 @@ function listSkillIds(player, state, predicate) {
       return ids;
     }
 
-    for(const [ level, abilities ] of Object.entries(player.playerClass.abilityTable)) {
-      abilities.skills = abilities.skills || [];
-      for(let skillId of abilities.skills) {
-        let skill = state.SkillManager.get(skillId);
-        if(skill) {
-          if(typeof predicate === "function" && !predicate(skill)) {
-            continue;
-          }
-
-          ids.add(skill.id);
+    for(const [ name, skill ] of state.SkillManager.skills) {
+      if(SkillUtil.canUseSkill(player, skill)) {
+        if(typeof predicate === "function" && !predicate(skill)) {
+          continue;
         }
+        ids.add(skill.id);
       }
     }
 
@@ -393,17 +389,12 @@ function listSpellIds(player, state, predicate) {
       return ids;
     }
 
-    for(const [ level, abilities ] of Object.entries(player.playerClass.abilityTable)) {
-      abilities.spells = abilities.spells || [];
-      for(let spellId of abilities.spells) {
-        let spell = state.SpellManager.get(spellId);
-        if(spell) {
-          if(typeof predicate === "function" && !predicate(spell)) {
-            continue;
-          }
-
-          ids.add(spell.id);
+    for(const [ name, spell ] of state.SpellManager.skills) {
+      if(SkillUtil.canUseSpell(player, spell)) {
+        if(typeof predicate === "function" && !predicate(spell)) {
+          continue;
         }
+        ids.add(spell.id);
       }
     }
 

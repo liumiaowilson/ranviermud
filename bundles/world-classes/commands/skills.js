@@ -2,9 +2,10 @@
 
 const sprintf = require('sprintf-js').sprintf;
 
-module.exports = srcPath => {
+module.exports = (srcPath, bundlesPath) => {
   const B = require(srcPath + 'Broadcast');
   const Logger = require(srcPath + 'Logger');
+  const SkillUtil = require(bundlesPath + 'world-lib/lib/SkillUtil');
 
   return {
     aliases: ['abilities', 'spells'],
@@ -13,6 +14,32 @@ module.exports = srcPath => {
       const say = message => B.sayAt(player, message);
       say("<b>" + B.center(80, 'Abilities', 'green'));
       say("<b>" + B.line(80, '=', 'green'));
+
+      say("<b>" + B.center(80, 'Skills', 'green'));
+      say("<b>" + B.line(80, '-', 'green'));
+      B.at(player, sprintf('%-20s %-20s %-20s', 'Skill Name', 'Skill Level', 'Skill Experience'));
+      say();
+      const skillsData = SkillUtil.getSkillsData(player);
+      for(const [ id, data ] of Object.entries(skillsData)) {
+        const skill = state.SkillManager.get(id);
+        if(skill) {
+          B.at(player, sprintf('%-20s %-20s %-20s', skill.name, data.level, data.exp + '%'));
+          say();
+        }
+      }
+
+      say("<b>" + B.center(80, 'Spells', 'green'));
+      say("<b>" + B.line(80, '-', 'green'));
+      B.at(player, sprintf('%-20s %-20s %-20s', 'Spell Name', 'Spell Level', 'Spell Experience'));
+      say();
+      const spellsData = SkillUtil.getSpellsData(player);
+      for(const [ id, data ] of Object.entries(spellsData)) {
+        const spell = state.SpellManager.get(id);
+        if(spell) {
+          B.at(player, sprintf('%-20s %-20s %-20s', spell.name, data.level, data.exp + '%'));
+          say();
+        }
+      }
 
       for (const [ level, abilities ] of Object.entries(player.playerClass.abilityTable)) {
         abilities.skills = abilities.skills || [];

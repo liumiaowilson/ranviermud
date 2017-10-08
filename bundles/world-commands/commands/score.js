@@ -12,7 +12,7 @@ module.exports = (srcPath) => {
     command : (state) => (args, p) => {
       const say = message => B.sayAt(p, message);
 
-      say('<b>' + B.center(60, `${p.name}, level ${p.level} ${p.playerClass.config.name}`, 'green'));
+      say('<b>' + B.center(60, `${p.name}, level ${p.level}`, 'green'));
       say('<b>' + B.line(60, '-', 'green'));
 
       let stats = {
@@ -47,20 +47,6 @@ module.exports = (srcPath) => {
             max: p.getMaxAttribute('energy')
           };
           B.at(p, sprintf(' %-9s: %12s', 'Energy', `${energy.current}/${energy.max}`));
-          break;
-        case 'mage':
-          const mana = {
-            current: p.getAttribute('mana'),
-            max: p.getMaxAttribute('mana')
-          };
-          B.at(p, sprintf(' %-9s: %12s', 'Mana', `${mana.current}/${mana.max}`));
-          break;
-        case 'paladin':
-          const favor = {
-            current: p.getAttribute('favor'),
-            max: p.getMaxAttribute('favor')
-          };
-          B.at(p, sprintf(' %-9s: %12s', 'Favor', `${favor.current}/${favor.max}`));
           break;
         default:
           B.at(p, B.line(24, ' '));

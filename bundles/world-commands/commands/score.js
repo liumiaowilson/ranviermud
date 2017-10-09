@@ -12,7 +12,7 @@ module.exports = (srcPath) => {
     command : (state) => (args, p) => {
       const say = message => B.sayAt(p, message);
 
-      say('<b>' + B.center(60, `${p.name}, level ${p.level}`, 'green'));
+      say('<b>' + B.center(60, `${p.name}, level ${p.level}, ${p.gender}, ${p.age}`, 'green'));
       say('<b>' + B.line(60, '-', 'green'));
 
       let stats = {
@@ -28,7 +28,10 @@ module.exports = (srcPath) => {
         stamina: 0,
         armor: 0,
         health: 0,
-        critical: 0
+        critical: 0,
+        fame: 0,
+        karma: 0,
+        sanity: 0,
       };
 
       for (const stat in stats) {
@@ -115,6 +118,10 @@ module.exports = (srcPath) => {
       say(':' + B.line(25) + ':');
       printStat('armor');
       printStat('critical');
+      say(':' + B.line(25) + ':');
+      printStat('fame');
+      printStat('karma');
+      printStat('sanity');
       say("'" + B.line(25) + "'");
     }
   };

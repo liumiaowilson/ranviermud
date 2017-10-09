@@ -11,7 +11,7 @@ module.exports = (srcPath) => {
   return {
     event: state => (socket, args) => {
       args.playerClass = 'warrior';
-      socket.emit('finish-player', socket, args);
+      socket.emit('choose-gender', socket, args);
     }
   };
 };

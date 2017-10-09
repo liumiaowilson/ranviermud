@@ -33,6 +33,8 @@ class Character extends EventEmitter
     super();
 
     this.name = data.name;
+    this.gender = data.gender;
+    this.age = data.age;
     this.inventory = new Inventory(data.inventory || {});
     this.equipment = data.equipment || new Map();
     this.combatants = new Set();
@@ -173,7 +175,7 @@ class Character extends EventEmitter
   }
 
   /**
-   * Update an attribute's base value. 
+   * Update an attribute's base value.
    *
    * NOTE: You _probably_ don't want to use this the way you think you do. You should not use this
    * for any temporary modifications to an attribute, instead you should use an Effect modifier.
@@ -471,6 +473,8 @@ class Character extends EventEmitter
       attributes: this.attributes.serialize(),
       level: this.level,
       name: this.name,
+      gender: this.gender,
+      age: this.age,
       room: this.room.entityReference,
       effects: this.effects.serialize(),
     };

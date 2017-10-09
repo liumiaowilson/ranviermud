@@ -8,11 +8,14 @@ module.exports = (srcPath) => {
   const EventUtil = require(srcPath + 'EventUtil');
   const Player = require(srcPath + 'Player');
   const RandomUtil = require(srcPath + 'RandomUtil');
+  const Logger = require(srcPath + 'Logger');
 
   return {
     event: state => (socket, args) => {
       let player = new Player({
         name: args.name,
+        gender: args.gender || "male",
+        age: args.age || 18,
         account: args.account,
         // TIP:DefaultAttributes: This is where you can change the default attributes for players
         attributes: {
@@ -27,9 +30,13 @@ module.exports = (srcPath) => {
           will: 5 + RandomUtil.roll(4, 5),
           charisma: 5 + RandomUtil.roll(4, 5),
 
+          karma: 0,
+          fame: 0,
+          sanity: 0,
+
           stamina: 90 + RandomUtil.roll(4, 5),
           armor: 0,
-          critical: 0
+          critical: 0,
         }
       });
 

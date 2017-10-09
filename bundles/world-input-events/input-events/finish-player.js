@@ -7,6 +7,7 @@
 module.exports = (srcPath) => {
   const EventUtil = require(srcPath + 'EventUtil');
   const Player = require(srcPath + 'Player');
+  const RandomUtil = require(srcPath + 'RandomUtil');
 
   return {
     event: state => (socket, args) => {
@@ -15,11 +16,18 @@ module.exports = (srcPath) => {
         account: args.account,
         // TIP:DefaultAttributes: This is where you can change the default attributes for players
         attributes: {
-          health: 100,
-          strength: 20,
-          agility: 20,
-          intellect: 20,
-          stamina: 20,
+          health: 90 + RandomUtil.roll(4, 5),
+
+          constitution: 5 + RandomUtil.roll(4, 5),
+          strength: 5 + RandomUtil.roll(4, 5),
+          agility: 5 + RandomUtil.roll(4, 5),
+          perception: 5 + RandomUtil.roll(4, 5),
+          intellect: 5 + RandomUtil.roll(4, 5),
+          magic: 5 + RandomUtil.roll(4, 5),
+          will: 5 + RandomUtil.roll(4, 5),
+          charisma: 5 + RandomUtil.roll(4, 5),
+
+          stamina: 90 + RandomUtil.roll(4, 5),
           armor: 0,
           critical: 0
         }

@@ -16,9 +16,15 @@ module.exports = (srcPath) => {
       say('<b>' + B.line(60, '-', 'green'));
 
       let stats = {
+        constitution: 0,
         strength: 0,
         agility: 0,
+        perception: 0,
         intellect: 0,
+        magic: 0,
+        will: 0,
+        charisma: 0,
+
         stamina: 0,
         armor: 0,
         health: 0,
@@ -54,7 +60,9 @@ module.exports = (srcPath) => {
       }
       say(sprintf('%35s', '.' + B.line(22)) + '.');
 
-      B.at(p, sprintf('%37s', '|'));
+      B.at(p, sprintf(' %-9s: %12s', 'Stamina', `${stats.stamina.current}/${stats.stamina.max}`));
+
+      B.at(p, sprintf('%13s', '|'));
       const weaponDamage = Combat.getWeaponDamage(p);
       const min = Combat.normalizeWeaponDamage(p, weaponDamage.min);
       const max = Combat.normalizeWeaponDamage(p, weaponDamage.max);
@@ -68,14 +76,14 @@ module.exports = (srcPath) => {
         '%-24s',
         ' Stats'
       ) + '</green></b>');
-      say('.' + B.line(22) + '.');
+      say('.' + B.line(25) + '.');
 
 
       const printStat = (stat, newline = true) => {
         const val = stats[stat];
         const statColor = (val.current > val.base ? 'green' : 'white');
         const str = sprintf(
-          `| %-9s : <b><${statColor}>%8s</${statColor}></b> |`,
+          `| %-12s : <b><${statColor}>%8s</${statColor}></b> |`,
           stat[0].toUpperCase() + stat.slice(1),
           val.current
         );
@@ -87,19 +95,27 @@ module.exports = (srcPath) => {
         }
       };
 
+      printStat('constitution', false); // left
+      say('<b><green>' + sprintf('%33s', 'Gold ')); // right
       printStat('strength', false); // left
-      say('<b><green>' + sprintf('%36s', 'Gold ')); // right
+      say(sprintf('%33s', '.' + B.line(12) + '.')); // right
       printStat('agility', false); // left
-      say(sprintf('%36s', '.' + B.line(12) + '.')); // right
+      say(sprintf('%19s| <b>%10s</b> |', '', p.getMeta('currencies.gold') || 0)); // right
+      printStat('perception', false); // left
+      say(sprintf('%33s', "'" + B.line(12) + "'")); // right
       printStat('intellect', false); // left
-      say(sprintf('%22s| <b>%10s</b> |', '', p.getMeta('currencies.gold') || 0)); // right
-      printStat('stamina', false); // left
-      say(sprintf('%36s', "'" + B.line(12) + "'")); // right
+      say('<b><green>' + sprintf('%33s', 'Medal ')); // right
+      printStat('magic', false); // left
+      say(sprintf('%33s', '.' + B.line(12) + '.')); // right
+      printStat('will', false); // left
+      say(sprintf('%19s| <b>%10s</b> |', '', p.getMeta('currencies.medal') || 0)); // right
+      printStat('charisma', false); // left
+      say(sprintf('%33s', "'" + B.line(12) + "'")); // right
 
-      say(':' + B.line(22) + ':');
+      say(':' + B.line(25) + ':');
       printStat('armor');
       printStat('critical');
-      say("'" + B.line(22) + "'");
+      say("'" + B.line(25) + "'");
     }
   };
 };

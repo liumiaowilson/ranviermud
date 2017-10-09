@@ -15,29 +15,33 @@ module.exports = (srcPath, bundlesPath) => {
       say("<b>" + B.center(80, 'Abilities', 'green'));
       say("<b>" + B.line(80, '=', 'green'));
 
-      say("<b>" + B.center(80, 'Skills', 'green'));
-      say("<b>" + B.line(80, '-', 'green'));
-      B.at(player, sprintf('%-20s %-20s %-20s', 'Skill Name', 'Skill Level', 'Skill Experience'));
-      say();
       const skillsData = SkillUtil.getSkillsData(player);
-      for(const [ id, data ] of Object.entries(skillsData)) {
-        const skill = state.SkillManager.get(id);
-        if(skill) {
-          B.at(player, sprintf('%-20s %-20s %-20s', skill.name, data.level, data.exp + '%'));
-          say();
+      if(Object.keys(skillsData).length) {
+        say("<b>" + B.center(80, 'Skills', 'green'));
+        say("<b>" + B.line(80, '-', 'green'));
+        B.at(player, sprintf('%-20s %-20s %-20s', 'Skill Name', 'Skill Level', 'Skill Experience'));
+        say();
+        for(const [ id, data ] of Object.entries(skillsData)) {
+          const skill = state.SkillManager.get(id);
+          if(skill) {
+            B.at(player, sprintf('%-20s %-20s %-20s', skill.name, data.level, data.exp + '%'));
+            say();
+          }
         }
       }
 
-      say("<b>" + B.center(80, 'Spells', 'green'));
-      say("<b>" + B.line(80, '-', 'green'));
-      B.at(player, sprintf('%-20s %-20s %-20s', 'Spell Name', 'Spell Level', 'Spell Experience'));
-      say();
       const spellsData = SkillUtil.getSpellsData(player);
-      for(const [ id, data ] of Object.entries(spellsData)) {
-        const spell = state.SpellManager.get(id);
-        if(spell) {
-          B.at(player, sprintf('%-20s %-20s %-20s', spell.name, data.level, data.exp + '%'));
-          say();
+      if(Object.keys(spellsData).length) {
+        say("<b>" + B.center(80, 'Spells', 'green'));
+        say("<b>" + B.line(80, '-', 'green'));
+        B.at(player, sprintf('%-20s %-20s %-20s', 'Spell Name', 'Spell Level', 'Spell Experience'));
+        say();
+        for(const [ id, data ] of Object.entries(spellsData)) {
+          const spell = state.SpellManager.get(id);
+          if(spell) {
+            B.at(player, sprintf('%-20s %-20s %-20s', spell.name, data.level, data.exp + '%'));
+            say();
+          }
         }
       }
 

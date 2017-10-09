@@ -1,0 +1,7 @@
+---
+command: learn
+body: |
+  To use the learn commands you have to find a tutor.
+
+  learn <tutor>            - List all skills or spells that you can learn from the tutor.
+  learn <tutor> <name>     - Learn the skill or spell from the tutor.

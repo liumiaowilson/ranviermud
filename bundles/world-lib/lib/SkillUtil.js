@@ -109,6 +109,27 @@ function getSkillData(player, skill) {
 exports.getSkillData = getSkillData;
 
 /**
+ * Get the player's skill magnifier
+ * @param {Player} player
+ * @param {Skill} skill
+ * @return {Object}
+ */
+function getSkillMagnifier(player, skill) {
+  let ret = 1;
+
+  if(player && skill) {
+    const skillsData = getSkillsData(player);
+    const skillData = skillsData[skill.id];
+    if(skillData && skillData.level) {
+      ret = (100 + (skillData.level - 1) * 5) / 100;
+    }
+  }
+
+  return 1;
+}
+exports.getSkillMagnifier = getSkillMagnifier;
+
+/**
  * Acquire a spell
  * @param {Player} player
  * @param {Spell} spell
@@ -207,3 +228,24 @@ function getSpellData(player, spell) {
   }
 }
 exports.getSpellData = getSpellData;
+
+/**
+ * Get the player's spell magnifier
+ * @param {Player} player
+ * @param {Spell} spell
+ * @return {Object}
+ */
+function getSpellMagnifier(player, spell) {
+  let ret = 1;
+
+  if(player && spell) {
+    const spellsData = getSpellsData(player);
+    const spellData = spellsData[spell.id];
+    if(spellData && spellData.level) {
+      ret = (100 + (spellData.level - 1) * 5) / 100;
+    }
+  }
+
+  return 1;
+}
+exports.getSpellMagnifier = getSpellMagnifier;

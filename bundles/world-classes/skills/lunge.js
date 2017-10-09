@@ -10,16 +10,17 @@ module.exports = (srcPath, bundlesPath) => {
   const Damage = require(srcPath + 'Damage');
   const SkillType = require(srcPath + 'SkillType');
   const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
+  const SkillUtil = require(bundlesPath + 'world-lib/lib/SkillUtil');
 
-  const damagePercent = 250;
+  const damagePercent = 150;
   const energyCost = 20;
 
-  function getDamage(player) {
-    return Combat.calculateWeaponDamage(player) * (damagePercent / 100);
+  function getDamage(player, skill) {
+    return Combat.calculateWeaponDamage(player) * (damagePercent / 100) * SkillUtil.getSkillMagnifier(player, skill);
   }
 
   return {
-    name: 'Lunge',
+    name: '冲击',
     type: SkillType.SKILL,
     requiresTarget: true,
     initiatesCombat: true,
@@ -39,22 +40,22 @@ module.exports = (srcPath, bundlesPath) => {
     run: state => function (args, player, target) {
       const damage = new Damage({
         attribute: 'health',
-        amount: getDamage(player),
+        amount: getDamage(player, this),
         attacker: player,
         type: 'physical',
         source: this
       });
 
-      Broadcast.sayAt(player, '<red>You shift your feet and let loose a mighty attack!</red>');
-      Broadcast.sayAtExcept(player.room, `<red>${player.name} lets loose a lunging attack on ${target.name}!</red>`, [player, target]);
+      Broadcast.sayAt(player, '<red>你一个猛冲，使出了有力的一击!</red>');
+      Broadcast.sayAtExcept(player.room, `<red>${player.name}狠狠地冲击了${target.name}!</red>`, [player, target]);
       if (!target.isNpc) {
-        Broadcast.sayAt(target, `<red>${player.name} lunges at you with a fierce attack!</red>`);
+        Broadcast.sayAt(target, `<red>${player.name}狠狠地冲击了你!</red>`);
       }
       damage.commit(target);
     },
 
     info: (player) => {
-      return `Make a strong attack against your target dealing <bold>${damagePercent}%</bold> weapon damage.`;
+      return `对你的目标作出凶猛的冲击，并且造成<bold>${damagePercent}%</bold>的武器伤害.`;
     }
   };
 };

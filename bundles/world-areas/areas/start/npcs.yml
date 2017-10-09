@@ -23,6 +23,14 @@
   description: "一个老人坐在地上，腿盘着."
   behaviors:
     world-sentient: true
+    tutor:
+      skills:
+        "lunge":
+          cost: 0
+          currency: gold
+          level: 1
+      enterMessage: "想跟我学武功吗?"
+      leaveMessage: "可别错过机会啊"
 - id: npc_puppy
   keywords: ["puppy"]
   name: 小狗

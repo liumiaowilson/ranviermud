@@ -11,6 +11,12 @@ module.exports = srcPath => {
     description: 'Capable of learning skills and competent in most fields.',
 
     setupCharacter: character => {
+      character.level = character.level || 1;
+
+      const randomValue = base => {
+        return base + character.level * 1 + RandomUtil.roll(4, 5);
+      };
+
       character.addAttribute('health', randomValue(90));
       character.addAttribute('energy', randomValue(90));
       character.addAttribute('stamina', randomValue(90));
@@ -32,8 +38,4 @@ module.exports = srcPath => {
       character.addAttribute('critical', 0);
     }
   };
-
-  function randomValue(base) {
-    return base + RandomUtil.roll(4, 5);
-  }
 };

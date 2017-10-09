@@ -10,6 +10,7 @@ const fs = require('fs'),
     Item = require('./Item'),
     Npc = require('./Npc'),
     PlayerClass = require('./PlayerClass'),
+    Race = require('./Race'),
     Room = require('./Room'),
     Skill = require('./Skill'),
     SkillType = require('./SkillType'),
@@ -74,6 +75,7 @@ class BundleManager {
       { path: 'behaviors/', fn: 'loadBehaviors' },
       { path: 'channels.js', fn: 'loadChannels' },
       { path: 'classes/', fn: 'loadClasses' },
+      { path: 'races/', fn: 'loadRaces' },
       { path: 'commands/', fn: 'loadCommands' },
       { path: 'effects/', fn: 'loadEffects' },
       { path: 'help/', fn: 'loadHelp' },
@@ -568,6 +570,31 @@ class BundleManager {
     }
 
     Logger.verbose(`\tENDLOAD: Classes...`);
+  }
+
+  /**
+   * @param {string} bundle
+   * @param {string} racesDir
+   */
+  loadRaces(bundle, racesDir) {
+    Logger.verbose(`\tLOAD: Races...`);
+    const files = fs.readdirSync(racesDir);
+
+    for (const raceFile of files) {
+      const racePath = racesDir + raceFile;
+      if (!Data.isScriptFile(racePath, raceFile)) {
+        continue;
+      }
+
+      const raceName = path.basename(raceFile, path.extname(raceFile));
+      const loader = require(racePath);
+      let raceImport = loader(srcPath, bundlesPath);
+
+      Logger.verbose(`\t\t${raceName}`);
+      this.state.RaceManager.set(raceName, new Race(raceName, raceImport));
+    }
+
+    Logger.verbose(`\tENDLOAD: Races...`);
   }
 
   /**

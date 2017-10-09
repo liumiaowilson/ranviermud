@@ -12,31 +12,16 @@ module.exports = (srcPath) => {
 
   return {
     event: state => (socket, args) => {
+      const raceId = 'human';
+
       let player = new Player({
         name: args.name,
         gender: args.gender || "male",
         age: args.age || 18,
         account: args.account,
+        prompt: '[ %health.current%/%health.max% <b>hp</b> %energy.current%/%energy.max% <b>energy</b> ]',
         // TIP:DefaultAttributes: This is where you can change the default attributes for players
         attributes: {
-          health: 90 + RandomUtil.roll(4, 5),
-
-          constitution: 5 + RandomUtil.roll(4, 5),
-          strength: 5 + RandomUtil.roll(4, 5),
-          agility: 5 + RandomUtil.roll(4, 5),
-          perception: 5 + RandomUtil.roll(4, 5),
-          intellect: 5 + RandomUtil.roll(4, 5),
-          magic: 5 + RandomUtil.roll(4, 5),
-          will: 5 + RandomUtil.roll(4, 5),
-          charisma: 5 + RandomUtil.roll(4, 5),
-
-          karma: 0,
-          fame: 0,
-          sanity: 0,
-
-          stamina: 90 + RandomUtil.roll(4, 5),
-          armor: 0,
-          critical: 0,
         }
       });
 
@@ -44,6 +29,9 @@ module.exports = (srcPath) => {
       args.account.save();
 
       player.setMeta('class', args.playerClass);
+      player.raceId = raceId;
+      const race = state.RaceManager.get(raceId);
+      race.setupCharacter(player);
 
       const room = state.RoomManager.startingRoom;
       player.room = room;

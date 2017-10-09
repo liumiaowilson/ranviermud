@@ -35,6 +35,7 @@ class Character extends EventEmitter
     this.name = data.name;
     this.gender = data.gender;
     this.age = data.age;
+    this.raceId = data.raceId;
     this.inventory = new Inventory(data.inventory || {});
     this.equipment = data.equipment || new Map();
     this.combatants = new Set();
@@ -459,6 +460,8 @@ class Character extends EventEmitter
    * @param {GameState} state
    */
   hydrate(state) {
+    this.race = state.RaceManager.get(this.raceId);
+
     this.effects.hydrate(state);
 
     // inventory is hydrated in the subclasses because npc and players hydrate their inventories differently
@@ -475,6 +478,7 @@ class Character extends EventEmitter
       name: this.name,
       gender: this.gender,
       age: this.age,
+      raceId: this.raceId,
       room: this.room.entityReference,
       effects: this.effects.serialize(),
     };

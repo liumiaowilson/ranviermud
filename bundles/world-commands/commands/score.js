@@ -12,7 +12,7 @@ module.exports = (srcPath) => {
     command : (state) => (args, p) => {
       const say = message => B.sayAt(p, message);
 
-      say('<b>' + B.center(60, `${p.name}, level ${p.level}, ${p.gender}, ${p.age}`, 'green'));
+      say('<b>' + B.center(60, `${p.name}, level ${p.level}, ${p.race.name}, ${p.gender}, ${p.age}`, 'green'));
       say('<b>' + B.line(60, '-', 'green'));
 
       let stats = {

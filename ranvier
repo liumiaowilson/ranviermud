@@ -28,6 +28,7 @@ const AreaManager = require('./src/AreaManager');
 const BehaviorManager = require('./src/BehaviorManager');
 const ChannelManager = require('./src/ChannelManager');
 const ClassManager = require('./src/ClassManager');
+const RaceManager = require('./src/RaceManager');
 const CommandManager = require('./src/CommandManager');
 const EffectFactory = require('./src/EffectFactory');
 const EventManager = require('./src/EventManager');
@@ -94,6 +95,7 @@ function init(restartServer) {
     AreaManager: new AreaManager(),
     ChannelManager: new ChannelManager(),
     ClassManager: new ClassManager(), // player class manager
+    RaceManager: new RaceManager(), // character race manager
     CommandManager: new CommandManager(),
     Config, // All global server settings like default respawn time, save interval, port, what bundles to load, etc.
     EffectFactory: new EffectFactory(),

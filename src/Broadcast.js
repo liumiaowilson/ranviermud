@@ -5,6 +5,7 @@ ansi.enable(); // force ansi on even when there isn't a tty for the server
 const wrap = require('wrap-ansi');
 const TypeUtil = require('./TypeUtil');
 const Broadcastable = require('./Broadcastable');
+const Logger = require('./Logger');
 
 /**
  * Class used for sending text to the player. All output to the player should happen through this
@@ -24,7 +25,8 @@ class Broadcast {
     formatter = formatter || ((target, message) => message);
 
     if (!TypeUtil.is(source, Broadcastable)) {
-      throw new Error(`Tried to broadcast message not non-broadcastable object: MESSAGE [${message}]`);
+      Logger.debug(source);
+      throw new Error(`Tried to broadcast message at non-broadcastable object: MESSAGE [${message}]`);
     }
 
     message = Broadcast._fixNewlines(message);

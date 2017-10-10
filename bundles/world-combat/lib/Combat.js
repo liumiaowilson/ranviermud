@@ -91,16 +91,44 @@ class Combat {
    * @param {Character} target
    */
   static makeAttack(attacker, target) {
-    const amount = this.calculateWeaponDamage(attacker);
-    const damage = new Damage({ attribute: 'health', amount, attacker });
-    damage.commit(target);
+    if(Combat.canHit(attacker, target)) {
+      const amount = this.calculateWeaponDamage(attacker);
+      const damage = new Damage({ attribute: 'health', amount, attacker });
+      damage.commit(target);
 
-    if (target.getAttribute('health') <= 0) {
-      target.combatData.killedBy = attacker;
+      if (target.getAttribute('health') <= 0) {
+        target.combatData.killedBy = attacker;
+      }
+    }
+    else {
+      if(attacker) {
+        attacker.emit("missed", target);
+      }
+      if(target) {
+        target.emit("evaded", attacker);
+      }
     }
 
     // currently lag is really simple, the character's weapon speed = lag
     attacker.combatData.lag = this.getWeaponSpeed(attacker) * 1000;
+  }
+
+  /**
+   * Check if the attack can hit.
+   * @param {Character} attacker
+   * @param {Character} target
+   * @return {Boolean}
+   */
+  static canHit(attacker, target) {
+    let accuracy = 75;
+
+    if(attacker && target) {
+      const attackerAgility = attacker.getAttribute("agility");
+      const targetAgility = target.getAttribute("agility");
+      accuracy = accuracy * (1 + (attackerAgility - targetAgility) / targetAgility);
+    }
+
+    return RandomUtil.probability(accuracy);
   }
 
   /**

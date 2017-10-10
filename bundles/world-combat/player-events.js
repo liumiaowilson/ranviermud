@@ -45,6 +45,22 @@ module.exports = (srcPath) => {
       },
 
       /**
+       * When the player missed a target
+       * @param {Character} target
+       */
+      missed: state => function(target) {
+        B.sayAt(this, `You missed ${target.name}.`);
+      },
+
+      /**
+       * When the player evaded from an attack
+       * @param {Character} attacker
+       */
+      evaded: state => function(attacker) {
+        B.sayAt(this, `You evaded from ${attacker.name}.`);
+      },
+
+      /**
        * When the player hits a target
        * @param {Damage} damage
        * @param {Character} target

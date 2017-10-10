@@ -479,7 +479,7 @@ class Character extends EventEmitter
       gender: this.gender,
       age: this.age,
       raceId: this.raceId,
-      room: this.room.entityReference,
+      room: this.room ? this.room.entityReference : null,
       effects: this.effects.serialize(),
     };
   }

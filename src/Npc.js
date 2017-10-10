@@ -29,7 +29,7 @@ class Npc extends Character {
     this.defaultEquipment = data.equipment || [];
     this.defaultItems = data.items || [];
     this.description = data.description;
-    this.entityReference = data.entityReference; 
+    this.entityReference = data.entityReference;
     this.id = data.id;
     this.keywords = data.keywords;
     this.pacifist = data.pacifist || false;
@@ -87,6 +87,17 @@ class Npc extends Character {
     super.hydrate(state);
     state.MobManager.addMob(this);
 
+    if(this.raceId) {
+      const race = state.RaceManager.get(this.raceId);
+      if(race) {
+        this.race = race;
+        this.race.setupCharacter(this);
+      }
+    }
+
+    if(!this.hasAttribute('health')) {
+      this.addAttribute('health', 100);
+    }
     this.setAttributeToMax('health');
 
     this.defaultItems.forEach(defaultItemId => {

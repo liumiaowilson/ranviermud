@@ -36,7 +36,6 @@ class Attributes extends Map
     super();
 
     baseStats = baseStats || {
-      health: { base: 100 },
     };
 
     for (const attr in baseStats) {

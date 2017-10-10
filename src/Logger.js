@@ -72,7 +72,7 @@ class Logger {
         return JSON.stringify(message);
       }
       else {
-        return new String(message);
+        return message;
       }
     });
     winston.log('verbose', ...pretty);

@@ -16,24 +16,24 @@ module.exports = srcPath => {
    };
 
   return {
-    name: 'Human',
-    description: 'Capable of learning skills and competent in most fields.',
+    name: 'Boar',
+    description: 'Wild animals often seen around the village.',
 
     setupCharacter: character => {
       character.level = character.level || 1;
 
-      setupAttr(character, 'health', 90, true);
-      setupAttr(character, 'energy', 90, true);
-      setupAttr(character, 'stamina', 90, true);
+      setupAttr(character, 'health', 110, true);
+      setupAttr(character, 'energy', 50, true);
+      setupAttr(character, 'stamina', 100, true);
 
-      setupAttr(character, 'constitution', 5, true);
-      setupAttr(character, 'strength', 5, true);
+      setupAttr(character, 'constitution', 7, true);
+      setupAttr(character, 'strength', 7, true);
       setupAttr(character, 'agility', 5, true);
       setupAttr(character, 'perception', 5, true);
-      setupAttr(character, 'intellect', 5, true);
-      setupAttr(character, 'magic', 5, true);
-      setupAttr(character, 'will', 5, true);
-      setupAttr(character, 'charisma', 5, true);
+      setupAttr(character, 'intellect', 1, true);
+      setupAttr(character, 'magic', 1, true);
+      setupAttr(character, 'will', 1, true);
+      setupAttr(character, 'charisma', 1, true);
 
       setupAttr(character, 'karma', 0);
       setupAttr(character, 'fame', 0);

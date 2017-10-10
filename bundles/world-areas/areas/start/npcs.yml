@@ -1,6 +1,7 @@
 - id: npc_toddler
   keywords: ['toddler']
   name: 小毛孩
+  raceId: human
   level: 2
   description: "小毛孩很着急的到处跑来跑去."
   script: 'script_npc_toddler'
@@ -11,9 +12,6 @@
     world-wander:
       interval: 20
       restrictTo: ['start:room_home', 'start:room_black_room', 'start:room_training_room_home']
-  attributes:
-    health: 100
-    energy: 100
 - id: npc_old_man
   keywords: ["old", "man"]
   name: "老人"
@@ -42,9 +40,7 @@
   keywords: ["boar"]
   level: 2
   name: "小野猪"
-  attributes:
-    health: 100
-    strength: 10
+  raceId: boar
   behaviors:
     combat: true
     lootable:
@@ -70,9 +66,7 @@
   name: "狂暴的小野猪"
   description: >-
     这只小野猪对你充满了敌意，小心.
-  attributes:
-    health: 120
-    strength: 12
+  raceId: boar
   behaviors:
     combat: true
     world-aggro:
@@ -83,9 +77,7 @@
   name: "蠢萌的小野猪"
   description: >-
     这只小野猪只会傻傻的攻击其他的小野猪.
-  attributes:
-    health: 100
-    strength: 15
+  raceId: boar
   behaviors:
     combat: true
     world-aggro:
@@ -99,9 +91,7 @@
   level: 5
   description: >-
     这只野猪明显比其他野猪大，更加充满了敌意.
-  attributes:
-    health: 200
-    strength: 15
+  raceId: boar
   behaviors:
     combat: true
     lootable:

@@ -50,6 +50,21 @@ module.exports = (srcPath) => {
        */
       missed: state => function(target) {
         B.sayAt(this, `You missed ${target.name}.`);
+
+        // show it to party members
+        if (!this.party) {
+          return;
+        }
+
+        for (const member of this.party) {
+          if (member === this || member.room !== this.room) {
+            continue;
+          }
+
+          let buf = `${this.name} missed ${target.name}.`;
+
+          B.sayAt(member, buf);
+        }
       },
 
       /**
@@ -58,6 +73,21 @@ module.exports = (srcPath) => {
        */
       evaded: state => function(attacker) {
         B.sayAt(this, `You evaded from ${attacker.name}.`);
+
+        // show it to party members
+        if (!this.party) {
+          return;
+        }
+
+        for (const member of this.party) {
+          if (member === this || member.room !== this.room) {
+            continue;
+          }
+
+          let buf = `${this.name} evaded from ${attacker.name}.`;
+
+          B.sayAt(member, buf);
+        }
       },
 
       /**

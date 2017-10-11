@@ -11,8 +11,9 @@ module.exports = (srcPath, bundlesPath) => {
   const SkillType = require(srcPath + 'SkillType');
   const SearchUtil = require(bundlesPath + 'world-lib/lib/SearchUtil');
   const SkillUtil = require(bundlesPath + 'world-lib/lib/SkillUtil');
+  const Combat = require(bundlesPath + 'world-combat/lib/Combat');
 
-  const damagePercent = 150;
+  const damagePercent = 200;
   const energyCost = 20;
 
   function getDamage(player, skill) {
@@ -28,7 +29,7 @@ module.exports = (srcPath, bundlesPath) => {
       attribute: 'energy',
       cost: energyCost,
     },
-    cooldown: 6,
+    cooldown: 5,
 
     commandOptions: (state, player) => {
       let options = {};
@@ -51,7 +52,8 @@ module.exports = (srcPath, bundlesPath) => {
       if (!target.isNpc) {
         Broadcast.sayAt(target, `<red>${player.name}狠狠地冲击了你!</red>`);
       }
-      damage.commit(target);
+
+      Combat.makeAttack(player, target, damage);
     },
 
     info: (player) => {

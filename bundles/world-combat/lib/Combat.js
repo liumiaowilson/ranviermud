@@ -86,14 +86,30 @@ class Combat {
   }
 
   /**
+   * Get the normal damage
+   * @param {Character} attacker
+   */
+  static normalDamage(attacker) {
+    const amount = this.calculateWeaponDamage(attacker);
+    const damage = new Damage({
+      attribute: 'health',
+      type: 'physical',
+      amount,
+      attacker,
+    });
+    return damage;
+  }
+
+  /**
    * Actually apply some damage from an attacker to a target
    * @param {Character} attacker
    * @param {Character} target
+   * @param {Damage} damage
    */
-  static makeAttack(attacker, target) {
+  static makeAttack(attacker, target, damage) {
     if(Combat.canHit(attacker, target)) {
-      const amount = this.calculateWeaponDamage(attacker);
-      const damage = new Damage({ attribute: 'health', amount, attacker });
+      damage = damage || this.normalDamage(attacker);
+
       damage.commit(target);
 
       if (target.getAttribute('health') <= 0) {

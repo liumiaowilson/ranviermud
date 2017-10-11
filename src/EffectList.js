@@ -1,5 +1,7 @@
 'use strict';
 
+const Logger = require('./Logger');
+
 /**
  * Self-managing list of effects for a target
  * @property {Set}    effects
@@ -137,8 +139,13 @@ class EffectList {
    */
   validateEffects() {
     for (const effect of this.effects) {
-      if (!effect.isCurrent()) {
-        this.remove(effect);
+      try {
+        if (!effect.isCurrent()) {
+          this.remove(effect);
+        }
+      }
+      catch(e) {
+        Logger.debug("Validate effect error: ", effect.constructor, effect, e);
       }
     }
   }

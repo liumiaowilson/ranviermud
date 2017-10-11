@@ -176,6 +176,11 @@ class Player extends Character {
   }
 
   hydrate(state) {
+    // Hydrate quests
+    this.questTracker.hydrate(state);
+
+    super.hydrate(state);
+
     if (typeof this.room === 'string') {
       let room = state.RoomManager.getRoom(this.room);
       if (!room) {
@@ -213,17 +218,12 @@ class Player extends Character {
           newItem.isEquipped = true;
           this.equip(newItem);
         } catch (e) {
-          Logger.error(e.message);
+          Logger.debug("Failed to equip item", e.message, e);
         }
       }
     } else {
       this.equipment = new Map();
     }
-
-    // Hydrate quests
-    this.questTracker.hydrate(state);
-
-    super.hydrate(state);
   }
 
   serialize() {

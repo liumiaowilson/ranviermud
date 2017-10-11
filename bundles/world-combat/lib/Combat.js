@@ -104,11 +104,13 @@ class Combat {
    * Actually apply some damage from an attacker to a target
    * @param {Character} attacker
    * @param {Character} target
-   * @param {Damage} damage
+   * @param {Attack} attack
    */
-  static makeAttack(attacker, target, damage) {
+  static makeAttack(attacker, target, attack) {
+    attack = attack || {};
+
     if(Combat.canHit(attacker, target)) {
-      damage = damage || this.normalDamage(attacker);
+      let damage = attack.damage || this.normalDamage(attacker);
 
       damage.commit(target);
 

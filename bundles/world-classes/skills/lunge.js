@@ -53,7 +53,9 @@ module.exports = (srcPath, bundlesPath) => {
         Broadcast.sayAt(target, `<red>${player.name}狠狠地冲击了你!</red>`);
       }
 
-      Combat.makeAttack(player, target, damage);
+      Combat.makeAttack(player, target, {
+        damage,
+      });
     },
 
     info: (player) => {

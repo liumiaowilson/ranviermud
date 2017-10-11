@@ -143,7 +143,7 @@ class Combat {
     if(attacker && target) {
       const attackerAgility = attacker.getAttribute("agility");
       const targetAgility = target.getAttribute("agility");
-      accuracy = accuracy * (1 + (attackerAgility - targetAgility) / targetAgility);
+      accuracy = accuracy + (100 - accuracy) * ((attackerAgility - targetAgility) / (attackerAgility + targetAgility));
     }
 
     return RandomUtil.probability(accuracy);

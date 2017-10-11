@@ -78,6 +78,10 @@ class Damage {
    */
   commit(target) {
     this.finalAmount = this.evaluate(target);
+    if(this.type === "physical") {
+      let reducedAmount = this.finalAmount - Random.inRange(0, target.getAttribute('armor'));
+      this.finalAmount = reducedAmount < this.finalAmount / 2 ? Math.floor(this.finalAmount / 2) : reducedAmount;
+    }
     target.lowerAttribute(this.attribute, this.finalAmount);
     if (this.attacker) {
       /**

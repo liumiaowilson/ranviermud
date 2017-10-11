@@ -114,7 +114,21 @@ class Character extends EventEmitter
   getMaxAttribute(attr) {
     if (this.hasAttribute(attr)) {
       const attribute = this.attributes.get(attr);
-      return this.effects.evaluateAttribute(attribute);
+      let value = this.effects.evaluateAttribute(attribute);
+
+      if(attr === 'health' && this.hasAttribute('constitution')) {
+        value += this.getAttribute('constitution') * 2;
+      }
+
+      if(attr === 'energy' && this.hasAttribute('magic')) {
+        value += this.getAttribute('magic') * 2;
+      }
+
+      if(attr === 'stamina' && this.hasAttribute('will')) {
+        value += this.getAttribute('will') * 2;
+      }
+
+      return value;
     }
     return null;
   }

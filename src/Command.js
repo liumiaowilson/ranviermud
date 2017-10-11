@@ -2,6 +2,8 @@
 
 const CommandType = require('./CommandType');
 const PlayerRoles = require('./PlayerRoles');
+const Broadcast = require('./Broadcast');
+const Damage = require('./Damage');
 
 /**
  * In game command. See the {@link http://ranviermud.com/extending/commands/|Command guide}
@@ -35,6 +37,10 @@ class Command {
     this.options = def.options || {};
     this.requiredRole = def.requiredRole || PlayerRoles.PLAYER;
     this.file = file;
+    this.resource = def.resource || {
+      attribute: 'stamina',
+      cost: 0,
+    };
   }
 
   /**
@@ -44,7 +50,66 @@ class Command {
    * @return {*}
    */
   execute(args, player, arg0) {
-    return this.func(args, player, arg0);
+    if(this.hasEnoughResources(player)) {
+      this.payResourceCosts(player);
+      return this.func(args, player, arg0);
+    }
+    else {
+      return Broadcast.sayAt(player, '<red>You do not have enough resources!</red>');
+    }
+  }
+
+  /**
+   * @param {Player} player
+   * @return {boolean}
+   */
+  hasEnoughResources(player) {
+    if (Array.isArray(this.resource)) {
+      return this.resource.every((resource) => this.hasEnoughResource(player, resource));
+    }
+    return this.hasEnoughResource(player, this.resource);
+  }
+
+  /**
+   * @param {Player} player
+   * @param {{ attribute: string, cost: number}} resource
+   * @return {boolean}
+   */
+  hasEnoughResource(player, resource) {
+    return !resource.cost || (
+      player.hasAttribute(resource.attribute) &&
+      player.getAttribute(resource.attribute) >= resource.cost
+    );
+  }
+
+  /**
+   * @param {Player} player
+   * @return {boolean} If the player has paid the resource cost(s).
+   */
+  payResourceCosts(player) {
+    const hasMultipleResourceCosts = Array.isArray(this.resource);
+    if (hasMultipleResourceCosts) {
+      for (const resourceCost of this.resource) {
+        this.payResourceCost(player, resourceCost);
+      }
+      return true;
+    }
+
+    return this.payResourceCost(player, this.resource);
+  }
+
+  // Helper to pay a single resource cost.
+  payResourceCost(player, resource) {
+    // Resource cost is calculated as damage so effects could potentially reduce resource costs
+    const damage = new Damage({
+      attribute: resource.attribute,
+      amount: resource.cost,
+      attacker: null,
+      hidden: true,
+      source: this
+    });
+
+    damage.commit(player);
   }
 }
 

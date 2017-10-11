@@ -12,6 +12,10 @@ module.exports = (srcPath, bundlePath) => {
   return {
     aliases: [ 'wield' ],
     usage: 'wear <item>',
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listKeywordsOfInventoryItems(player, item => item.slot)

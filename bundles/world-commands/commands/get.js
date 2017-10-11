@@ -10,6 +10,10 @@ module.exports = (srcPath, bundlePath) => {
   return {
     usage: 'get [container] <item> | get room <item>',
     aliases: [ 'take', 'pick', 'loot' ],
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
 

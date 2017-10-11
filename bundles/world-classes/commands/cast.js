@@ -6,6 +6,10 @@ module.exports = (srcPath, bundlesPath) => {
 
   return {
     usage: "cast <spell> <target>",
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listSpellIds(player, state).forEach(spellId => {

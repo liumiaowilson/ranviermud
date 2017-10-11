@@ -10,6 +10,10 @@ module.exports = (srcPath, bundlesPath) => {
 
   return {
     usage: "learn <tutor> [skill/spell]",
+    resource: {
+      attribute: 'stamina',
+      cost: 50,
+    },
     options: (state, player) => {
       let options = {};
 

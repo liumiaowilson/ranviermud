@@ -8,6 +8,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     usage: 'lock <item> / lock door <door direction>',
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
 

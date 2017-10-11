@@ -9,6 +9,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     usage: 'put <item> <container>',
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
       let itemKeywords = SearchUtil.listKeywordsOfInventoryItems(player);

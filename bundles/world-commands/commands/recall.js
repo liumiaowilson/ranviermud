@@ -5,6 +5,10 @@ module.exports = srcPath => {
 
   return {
     usage: 'recall',
+    resource: {
+      attribute: 'stamina',
+      cost: 50,
+    },
     options: {},
     command: state => (args, player) => {
       const home = player.getMeta('waypoints.home');

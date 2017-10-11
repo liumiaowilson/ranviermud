@@ -8,6 +8,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     usage: 'unlock <item> | unlock door <door direction>',
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listKeywordsOfItems(player, item => item.closed && item.locked).forEach(keyword => options[keyword] = {});

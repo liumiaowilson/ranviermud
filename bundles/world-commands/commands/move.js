@@ -14,6 +14,10 @@ module.exports = (srcPath, bundlePath) => {
   return {
     aliases: [ "go", "walk" ],
     usage: 'move [direction]',
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listExitNames(player).forEach(exit => options[exit] = {});

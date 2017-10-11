@@ -8,6 +8,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     usage: 'flee [direction]',
+    resource: {
+      attribute: 'stamina',
+      cost: 10,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listExitNames(player).forEach(exit => options[exit] = {});

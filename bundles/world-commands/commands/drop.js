@@ -8,6 +8,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     usage: 'drop <item>',
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
       if(player.room) {

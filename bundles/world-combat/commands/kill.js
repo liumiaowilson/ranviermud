@@ -11,6 +11,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     aliases: ['attack', 'slay'],
+    resource: {
+      attribute: 'stamina',
+      cost: 20,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listKeywordsOfEnemies(player).forEach(keyword => options[keyword] = {});

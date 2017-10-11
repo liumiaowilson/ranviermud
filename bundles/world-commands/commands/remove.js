@@ -9,6 +9,10 @@ module.exports = (srcPath, bundlePath) => {
   return {
     aliases: [ 'unwield', 'unequip' ],
     usage: 'remove <item>',
+    resource: {
+      attribute: 'stamina',
+      cost: 5,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listKeywordsOfEquipmentItems(player).forEach(keyword => options[keyword] = {});

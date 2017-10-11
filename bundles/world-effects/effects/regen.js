@@ -23,6 +23,7 @@ module.exports = srcPath => {
         const regens = [
           { pool: 'health', modifier: this.target.isInCombat() ? 0 : 1 },
           { pool: 'energy', modifier: this.target.isInCombat() ? 0.25 : 1.5 },
+          { pool: 'stamina', modifier: this.target.isInCombat() ? 0 : 1 },
         ];
 
         for (const regen of regens) {

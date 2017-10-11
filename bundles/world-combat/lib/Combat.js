@@ -109,9 +109,21 @@ class Combat {
   static makeAttack(attacker, target, attack) {
     attack = attack || {};
 
-    if(Combat.canHit(attacker, target)) {
-      let damage = attack.damage || this.normalDamage(attacker);
+    let attackerEffect = attack.attackerEffect;
+    if(attackerEffect) {
+      attacker.addEffect(attackerEffect);
+    }
 
+    if(Combat.canHit(attacker, target)) {
+      let targetEffect = attack.targetEffect;
+      if(targetEffect) {
+        targetEffect.attacker = targetEffect.attacker || attacker;
+        target.addEffect(targetEffect);
+      }
+
+      let damage = attack.damage || this.normalDamage(attacker);
+      damage.attacker = damage.attacker || attacker;
+      damage.type = damage.type || 'physical';
       damage.commit(target);
 
       if (target.getAttribute('health') <= 0) {

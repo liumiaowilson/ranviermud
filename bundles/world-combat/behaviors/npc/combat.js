@@ -14,6 +14,7 @@ module.exports = (srcPath) => {
        * @param {*} config Behavior config
        */
       updateTick: state => function (config) {
+        Combat.startRegeneration(state, this);
         Combat.updateRound(state, this);
       },
 

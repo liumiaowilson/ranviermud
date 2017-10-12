@@ -1,0 +1,4 @@
+---
+command: ask
+body: |
+  Ask an npc to get some information.

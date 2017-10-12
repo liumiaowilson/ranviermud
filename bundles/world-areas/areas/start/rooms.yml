@@ -40,13 +40,15 @@
 - &trainingroom
   id: room_training_room_home
   title: "训练场"
-  script: "script_room_training_room_home"
   description: >-
     一眼望去全是庄稼，然而不时可以看到一些野生动物在搞破坏.
   npcs:
     - id: "start:npc_boar"
       respawnChance: 25
       maxLoad: 3
+  behaviors:
+    start_quest:
+      quest: "start:quest_self_defense"
   exits:
     - roomId: "start:room_black_room"
       direction: west
@@ -111,9 +113,11 @@
   title: "驿站"
   description: >
     这里有一个驿站，你可以用<b><cyan>waypoint</cyan></b>来使用.
-  script: 'script_room_waypoint'
   behaviors:
     waypoint: true
+    message:
+      enterMessage: >-
+        <b><cyan>提示: 驿站可以将你传送到很远的其他驿站. 用'<white>waypoint save</white>'来保存这个驿站, 用'<white>waypoint home</white>来存你的home驿站. 你可以用'<white>recall</white>'来回到你的home驿站.</cyan></b>
   exits:
     - roomId: "start:room_home"
       direction: up

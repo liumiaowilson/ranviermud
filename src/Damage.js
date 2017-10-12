@@ -59,7 +59,13 @@ class Damage {
     let amount = this.amount;
 
     if (this.attacker) {
-      const critChance = Math.max(this.attacker.getMaxAttribute('critical') || 0, 0);
+      let critChance = Math.max(this.attacker.getAttribute('critical') || 0, 0);
+      const attackerPer = this.attacker.getAttribute('perception') || 0;
+      const targetPer = target.getAttribute('perception') || 0;
+      if(attackerPer > targetPer) {
+        critChance += attackerPer - targetPer;
+        critChance = Math.min(critChance, 50);
+      }
       this.critical = Random.probability(critChance);
       if (this.critical) {
         amount = Math.ceil(amount * this.criticalMultiplier);

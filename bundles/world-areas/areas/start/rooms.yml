@@ -6,7 +6,9 @@
     - id: "start:item_wooden_chest"
       respawnChance: 20
       replaceOnRespawn: true # when this chest respawns completely replace it so its contents get refreshed
-  script: "script_room_home"
+  behaviors:
+    start_quest:
+      quest: "start:quest_new_journey"
   exits:
     - roomId: "start:room_black_room"
       direction: east

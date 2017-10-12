@@ -66,6 +66,14 @@ module.exports = (srcPath) => {
         this.save();
       },
 
+      level: state => function() {
+        let medals = this.getMeta('currencies.medal') || 0;
+        medals += 5;
+        this.setMeta('currencies.medal', medals);
+
+        this.save();
+      },
+
       /**
        * Handle a player equipping an item with a `stats` property
        * @param {string} slot

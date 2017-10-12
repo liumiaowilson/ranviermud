@@ -29,6 +29,10 @@ module.exports = (srcPath) => {
       args.account.save();
 
       player.setMeta('class', args.playerClass);
+      player.setMeta('currencies', {
+        gold: 0,
+        medal: 0,
+      });
       player.raceId = raceId;
       const race = state.RaceManager.get(raceId);
       race.setupCharacter(player);

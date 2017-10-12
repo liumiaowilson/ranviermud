@@ -4,7 +4,6 @@
   raceId: human
   level: 2
   description: "小毛孩很着急的到处跑来跑去."
-  script: 'script_npc_toddler'
   items: ['start:item_dirty_meat']
   quests: ['start:quest_find_my_meat']
   behaviors:

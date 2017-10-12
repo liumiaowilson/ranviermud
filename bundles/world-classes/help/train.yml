@@ -1,0 +1,4 @@
+---
+command: train
+body: |
+  Use medal points to train one of your attributes.

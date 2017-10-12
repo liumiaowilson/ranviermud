@@ -21,7 +21,7 @@
  *
  *     # an NPC that's aggressive towards players
  *     behaviors:
- *       world-aggro:
+ *       aggro:
  *         delay: 10
  *         warnMessage: '%name% snarls angrily.'
  *         towards:
@@ -30,7 +30,7 @@
  *
  *     # an NPC that fights enemy NPC squirrels and rabbits
  *     behaviors:
- *       world-aggro:
+ *       aggro:
  *          towards:
  *            players: false
  *            npcs: ["limbo:squirrel", "limbo:rabbit"]

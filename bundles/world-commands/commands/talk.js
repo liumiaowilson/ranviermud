@@ -41,7 +41,7 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       B.sayAt(player, `<b><cyan>You say to ${npc.name}, '${message}'</cyan></b>`);
-      if (!npc.hasBehavior('world-sentient')) {
+      if (!npc.hasBehavior('sentient')) {
         return B.sayAt(player, "They don't seem to understand you.");
       }
 

@@ -9,7 +9,7 @@
   quests: ['start:quest_find_my_meat']
   behaviors:
     combat: true
-    world-wander:
+    wander:
       interval: 20
       restrictTo: ['start:room_home', 'start:room_black_room', 'start:room_training_room_home']
 - id: npc_old_man
@@ -20,7 +20,7 @@
   pacifist: true
   description: "一个老人坐在地上，腿盘着."
   behaviors:
-    world-sentient: true
+    sentient: true
     tutor:
       skills:
         "lunge":
@@ -69,7 +69,7 @@
   raceId: boar
   behaviors:
     combat: true
-    world-aggro:
+    aggro:
       delay: 5
 - id: npc_stupid_boar
   keywords: ["stupid", "boar"]
@@ -80,7 +80,7 @@
   raceId: boar
   behaviors:
     combat: true
-    world-aggro:
+    aggro:
       delay: 5
       towards:
         players: false
@@ -111,7 +111,7 @@
   level: 99
   pacifist: true
   behaviors:
-    world-sentient: true
+    sentient: true
     vendor:
       items:
         "start:item_training_sword":

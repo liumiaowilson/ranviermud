@@ -1,6 +1,6 @@
 This bundle is a set of useful NPC behaviors.
 
-For the `world-sentient` behavior to work you will need an account with
+For the `sentient` behavior to work you will need an account with
 api.ai and you will need to put your developer key in a file called `APIAIKEY`
 in the same directory as this README file.
 

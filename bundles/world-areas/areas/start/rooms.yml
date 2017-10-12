@@ -21,11 +21,14 @@
   title: "阴暗的屋子"
   description: >-
     一个非常阴暗的屋子，似乎没有光可以进来
-  script: "script_room_black_room"
   items:
     - id: "start:item_dirty_meat"
       respawnChance: 30
   npcs: ["start:npc_old_man", "start:npc_puppy"]
+  behaviors:
+    message:
+      enterMessage: >-
+        <b><cyan>提示: 你可以先查看一个房间，用'<white>look</white>'，然后用'<white>get</white>'加从哪里和一个合理的关键词 e.g., '<white>get room meat</white>'来获得物品. 有些物品比如木箱子里面可以有其他物品，你可以仔细查看.</cyan></b>
   exits:
     - roomId: "start:room_home"
       direction: west

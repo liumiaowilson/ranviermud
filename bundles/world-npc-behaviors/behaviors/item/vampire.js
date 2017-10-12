@@ -1,17 +1,21 @@
 'use strict';
 
 /**
- * Example weapon hit script
+ * A behavior that causes heal of health on combat hit
+ * Options:
+ *   chance: Number, chance to trigger the effect
+ *   magnitude: Float, the percentage of the health to heal against the damage
  */
-module.exports = (srcPath) => {
+module.exports = srcPath => {
   const Broadcast = require(srcPath + 'Broadcast');
+  const Logger = require(srcPath + 'Logger');
   const Random = require(srcPath + 'RandomUtil');
   const Heal = require(srcPath + 'Heal');
 
-  return  {
+  return {
     listeners: {
-      hit: state => function (damage, target) {
-        if (!damage.attacker || damage.attacker.isNpc) {
+      hit: state => function (config, damage, target) {
+        if (!damage.attacker) {
           return;
         }
 
@@ -20,10 +24,12 @@ module.exports = (srcPath) => {
         // !== this` otherwise you could create an infinite loop the weapon's own damage triggering
         // its script
 
-        if (Random.probability(50)) {
-          const amount = damage.critical ?
-            damage.attacker.getMaxAttribute('health') :
-            Math.floor(damage.finalAmount / 4);
+        let chance = config.chance || 50;
+        let magnitude = config.magnitude || 0.25;
+
+        if (Random.probability(chance)) {
+          let amount = Math.floor(damage.finalAmount * magnitude);
+          amount = damage.critical ? amount * 2 : amount;
 
           const heal = new Heal({
             attribute: 'health',

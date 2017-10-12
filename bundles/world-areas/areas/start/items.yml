@@ -171,7 +171,10 @@
   keywords: ["blade"]
   description: "这把剑闪着银色的光芒，充满了杀意."
   slot: "wield"
-  script: "script_item_blade"
+  behaviors:
+    vampire:
+      chance: 50
+      magnitude: 0.25
   properties:
     quality: epic
     itemLevel: 15

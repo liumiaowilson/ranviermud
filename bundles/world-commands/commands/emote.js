@@ -43,6 +43,8 @@ module.exports = (srcPath) => {
           Broadcast.sayAt(presentPlayer, emoteMessage.replace(presentPlayer.name, 'you'));
         }
       });
+
+      return true;
     }
   };
 

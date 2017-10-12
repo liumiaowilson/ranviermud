@@ -38,6 +38,8 @@ module.exports = (srcPath, bundlesPath) => {
         },
         label: `cast ${args}`,
       }, spell.lag || state.Config.get('skillLag') || 1000);
+
+      return true;
     }
   };
 };

@@ -12,6 +12,8 @@ module.exports = (srcPath) => {
     command : (state) => (args, player) => {
       player.commandQueue.flush();
       Broadcast.sayAt(player, '<bold><yellow>Queue flushed.</yellow></bold>');
+
+      return true;
     }
   };
 };

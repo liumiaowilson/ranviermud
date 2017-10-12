@@ -16,6 +16,8 @@ module.exports = (srcPath) => {
       Broadcast.sayAt(player, `Level: ${player.level}`);
       Broadcast.sayAt(player, Broadcast.progress(80, currentPerc, "blue"));
       Broadcast.sayAt(player, `${player.experience}/${totalTnl} (${currentPerc}%, ${totalTnl - player.experience} til next level)`);
+
+      return true;
     }
   };
 };

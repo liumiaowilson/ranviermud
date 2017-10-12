@@ -90,7 +90,8 @@ module.exports = (srcPath, bundlePath) => {
         }
 
         doorRoom.unlockDoor(targetRoom);
-        return B.sayAt(player, '*click* The door unlocks.');
+        B.sayAt(player, '*click* The door unlocks.');
+        return true;
       }
 
       // otherwise trying to open an item
@@ -123,7 +124,8 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       B.sayAt(player, `*click* You unlock ${ItemUtil.display(item)}.`);
-      return item.unlock();
+      item.unlock();
+      return true;
     }
   };
 };

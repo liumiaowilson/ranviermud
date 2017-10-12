@@ -45,6 +45,8 @@ module.exports = (srcPath, bundlePath) => {
       Broadcast.sayAt(player, `You start following ${target.name}.`);
       Broadcast.sayAt(target, `${player.name} starts following you.`);
       player.follow(target);
+
+      return true;
     }
   };
 };

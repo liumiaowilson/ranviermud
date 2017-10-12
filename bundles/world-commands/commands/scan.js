@@ -28,6 +28,8 @@ module.exports = srcPath => {
         }
         B.sayAt(player);
       }
+
+      return true;
     }
   };
 };

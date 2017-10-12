@@ -107,6 +107,8 @@ module.exports = (srcPath, bundlesPath) => {
             }
           }
         }
+
+        return true;
       }
       else {
         const abilityConfig = getAbilityConfig(tutorConfig, abilityName);
@@ -144,6 +146,8 @@ module.exports = (srcPath, bundlesPath) => {
 
         player.setMeta(currencyKey, playerCurrency - abilityConfig.cost);
         player.save();
+
+        return true;
       }
     }
   };

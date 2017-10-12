@@ -76,6 +76,8 @@ module.exports = (srcPath, bundlePath) => {
       if (!target.isNpc) {
         B.sayAt(target, `<green>${player.name} gives you: ${ItemUtil.display(targetItem)}.</green>`);
       }
+
+      return true;
     }
   };
 };

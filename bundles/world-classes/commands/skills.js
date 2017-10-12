@@ -106,6 +106,8 @@ module.exports = (srcPath, bundlesPath) => {
         // end with a line break
         say();
       }
+
+      return true;
     }
   };
 };

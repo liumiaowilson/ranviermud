@@ -33,6 +33,8 @@ module.exports = (srcPath, bundlePath) => {
 
       Broadcast.sayAt(player, `<green>You un-equip: </green>${ItemUtil.display(item)}<green>.</green>`);
       player.unequip(slot);
+
+      return true;
     }
   };
 };

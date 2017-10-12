@@ -46,6 +46,8 @@ module.exports = (srcPath) => {
 
       // end with a line break
       Broadcast.sayAt(player, '');
+
+      return true;
     }
   };
 };

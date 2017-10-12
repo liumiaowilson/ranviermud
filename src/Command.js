@@ -51,8 +51,11 @@ class Command {
    */
   execute(args, player, arg0) {
     if(this.hasEnoughResources(player)) {
-      this.payResourceCosts(player);
-      return this.func(args, player, arg0);
+      const ret = this.func(args, player, arg0);
+      if(ret === true) {
+        this.payResourceCosts(player);
+      }
+      return ret;
     }
     else {
       return Broadcast.sayAt(player, '<red>You do not have enough resources!</red>');

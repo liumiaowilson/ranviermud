@@ -33,7 +33,7 @@ module.exports = (srcPath, bundlePath) => {
         return lookEntity(state, player, args);
       }
 
-      lookRoom(state, player);
+      return lookRoom(state, player);
     }
   };
 
@@ -220,6 +220,8 @@ module.exports = (srcPath, bundlePath) => {
         B.at(player, 'none');
       }
       B.sayAt(player, ']');
+
+      return true;
   }
 
   function lookEntity(state, player, args) {
@@ -295,6 +297,8 @@ module.exports = (srcPath, bundlePath) => {
         }
       }
     }
+
+    return true;
   }
 
 

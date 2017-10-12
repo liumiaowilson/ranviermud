@@ -17,6 +17,8 @@ module.exports = (srcPath, bundlePath) => {
 
       state.PartyManager.create(player);
       say(player, "<b><green>You created a group, invite players with '<white>group invite <name></white>'</green></b>");
+
+      return true;
     }
   });
 
@@ -53,6 +55,8 @@ module.exports = (srcPath, bundlePath) => {
       say(player, `<b><green>You invite ${target.name} to join your group.</green></b>`);
       player.party.invite(target);
       B.prompt(target);
+
+      return true;
     }
   }
   );
@@ -74,6 +78,8 @@ module.exports = (srcPath, bundlePath) => {
 
       say(player.party, '<b><green>Your group was disbanded!</green></b>');
       state.PartyManager.disband(player.party);
+
+      return true;
     }
   });
 
@@ -102,6 +108,8 @@ module.exports = (srcPath, bundlePath) => {
       say(target.party, `<b><green>${player.name} joined the group.</green></b>`);
       target.party.add(player);
       player.follow(target);
+
+      return true;
     }
   });
 
@@ -121,6 +129,8 @@ module.exports = (srcPath, bundlePath) => {
       say(player, `<b><green>You decline to join ${target.name}'s group.</green></b>`);
       say(target, `<b><green>${player.name} declined to join your group.</green></b>`);
       target.party.removeInvite(player);
+
+      return true;
     }
   });
 
@@ -135,6 +145,8 @@ module.exports = (srcPath, bundlePath) => {
       player.party.delete(player);
       say(party, `<b><green>${player.name} left the group.</green></b>`);
       say(player, '<b><green>You leave the group.</green></b>');
+
+      return true;
     }
   });
 
@@ -153,6 +165,8 @@ module.exports = (srcPath, bundlePath) => {
         }
         say(player, `<b><green>${tag} ${member.name}</green></b>`);
       }
+
+      return true;
     }
   });
 
@@ -187,7 +201,7 @@ module.exports = (srcPath, bundlePath) => {
         return say(player, "Not a valid party command.");
       }
 
-      subcommand.command(state)(commandArgs.join(' '), player);
+      return subcommand.command(state)(commandArgs.join(' '), player);
     }
   };
 };

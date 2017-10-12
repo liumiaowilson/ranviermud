@@ -41,6 +41,8 @@ module.exports = (srcPath) => {
         }
         B.sayAt(player, "\t" + effect.description);
       }
+
+      return true;
     }
   };
 };

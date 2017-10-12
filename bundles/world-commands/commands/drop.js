@@ -49,6 +49,8 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       Broadcast.sayAt(player, `<green>You dropped: </green>${ItemUtil.display(item)}<green>.</green>`);
+
+      return true;
     }
   };
 };

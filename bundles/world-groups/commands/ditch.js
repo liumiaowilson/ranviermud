@@ -27,6 +27,8 @@ module.exports = (srcPath, bundlePath) => {
       Broadcast.sayAt(player, `You ditch ${target.name} and they stop following you.`);
       Broadcast.sayAt(target, `${player.name} ditches you and you stop following them.`);
       target.unfollow();
+
+      return true;
     }
   };
 };

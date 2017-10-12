@@ -72,6 +72,8 @@ module.exports = (srcPath, bundlePath) => {
 
       item.emit('put', player, toContainer);
       player.emit('put', item, toContainer);
+
+      return true;
     }
   };
 };

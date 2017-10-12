@@ -48,7 +48,7 @@ module.exports = (srcPath) => {
           const val = player.metadata.config[key] ? 'on' : 'off';
           Broadcast.sayAt(player, `  ${key}: ${val}`);
         }
-        return;
+        return true;
       }
 
       if (!configToSet) {
@@ -87,6 +87,8 @@ module.exports = (srcPath) => {
 
       function listCurrentConfiguration() {
       }
+
+      return true;
     }
   };
 };

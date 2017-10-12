@@ -17,6 +17,8 @@ module.exports = (srcPath) => {
 
       Broadcast.sayAt(player, state.PlayerManager.players.size + ' total');
 
+      return true;
+
       function getRoleString(role = 0) {
         return [
           '',

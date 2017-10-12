@@ -23,6 +23,8 @@ module.exports = (srcPath, bundlePath) => {
         const room = state.RoomManager.getRoom(savedWaypoint);
         B.sayAt(player, sprintf('%2s) %s%s', i + 1, waypoints.home === room.entityReference ? '(H) ' : '', room.title));
       }
+
+      return true;
     }
   });
 
@@ -47,6 +49,8 @@ module.exports = (srcPath, bundlePath) => {
       waypoints.saved.push(player.room.entityReference);
       player.setMeta('waypoints', waypoints);
       B.sayAt(player, `${player.room.title} saved to your waypoints. Use '<b>waypoint home</b>' to set as your home waypoint.`);
+
+      return true;
     }
   });
 
@@ -65,6 +69,8 @@ module.exports = (srcPath, bundlePath) => {
 
       player.setMeta('waypoints.home', player.room.entityReference);
       B.sayAt(player, `${player.room.title} is now your home waypoint.`);
+
+      return true;
     }
   });
 
@@ -102,6 +108,8 @@ module.exports = (srcPath, bundlePath) => {
         B.sayAt(player, '<b><cyan>The blue light dims and you find yourself at the next wayshrine.</cyan></b>');
         B.sayAtExcept(player.room, `<b><cyan>The waypiller glows brightly and ${player.name} appears in a flash of blue light.</cyan></b>`, [player]);
       });
+
+      return true;
     }
   });
 
@@ -125,7 +133,7 @@ module.exports = (srcPath, bundlePath) => {
         return B.sayAt(player, 'Invalid waypoint command.');
       }
 
-      subcommand.command(state)(commandArgs.join(' '), player);
+      return subcommand.command(state)(commandArgs.join(' '), player);
     }
   };
 };

@@ -30,6 +30,7 @@ module.exports = (srcPath) => {
       }
 
       Broadcast.sayAt(player, '<bold><yellow>Use the "flush" command to flush the queue</yellow></bold>');
+      return true;
     }
   };
 };

@@ -55,6 +55,8 @@ module.exports = (srcPath, bundlePath) => {
       if (!target.isNpc) {
         B.sayAt(target, `${player.name} attacks you!`);
       }
+
+      return true;
     }
   };
 };

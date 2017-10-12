@@ -52,6 +52,8 @@ module.exports = srcPath => {
       map += "'" + ('-'.repeat(xSize * 2 + 1)) + "'";
 
       B.sayAt(player, map);
+
+      return true;
     }
   };
 };

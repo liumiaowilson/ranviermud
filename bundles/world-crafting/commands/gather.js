@@ -10,6 +10,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     usage: "gather <item>",
+    resource: {
+      attribute: 'stamina',
+      cost: 50,
+    },
     options: (state, player) => {
       let options = {};
       SearchUtil.listKeywordsOfRoomItems(player, item => item.getBehavior('resource'))
@@ -53,6 +57,8 @@ module.exports = (srcPath, bundlePath) => {
       state.ItemManager.remove(node);
       B.sayAt(player, `${ItemUtil.display(node)} ${resource.depletedMessage}`);
       node = null;
+
+      return true;
     }
   };
 };

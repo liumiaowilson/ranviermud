@@ -101,7 +101,8 @@ module.exports = (srcPath, bundlePath) => {
         }
 
         B.sayAt(player, "The door swings open.");
-        return doorRoom.openDoor(targetRoom);
+        doorRoom.openDoor(targetRoom);
+        return true;
       }
 
       // otherwise trying to open an item
@@ -131,7 +132,9 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       B.sayAt(player, `You open ${ItemUtil.display(item)}.`);
-      return item.open();
+      item.open();
+
+      return true;
     }
   };
 };

@@ -93,7 +93,8 @@ module.exports = (srcPath, bundlePath) => {
         }
 
         doorRoom.lockDoor(targetRoom);
-        return B.sayAt(player, '*click* The door locks.');
+        B.sayAt(player, '*click* The door locks.');
+        return true;
       }
 
       // otherwise trying to close an item
@@ -119,7 +120,8 @@ module.exports = (srcPath, bundlePath) => {
         return;
       }
 
-      return B.sayAt(player, "The item is locked and you don't have the key.");
+      B.sayAt(player, "The item is locked and you don't have the key.");
+      return true;
     }
   };
 };

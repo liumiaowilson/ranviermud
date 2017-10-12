@@ -47,6 +47,7 @@ module.exports = (srcPath) => {
       }
       try {
         B.sayAt(player, render(state, hfile));
+        return true;
       } catch (e) {
         Logger.warn(`UNRENDERABLE-HELP: [${args}]`);
         Logger.warn(e);

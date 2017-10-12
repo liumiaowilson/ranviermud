@@ -26,6 +26,8 @@ module.exports = srcPath => {
         B.sayAt(player, '<b><cyan>The blue light dims and you find yourself at the wayshrine.</cyan></b>');
         B.sayAtExcept(player.room, `<b><cyan>The waypiller glows brightly and ${player.name} appears in a flash of blue light.</cyan></b>`, [player]);
       });
+
+      return true;
     }
   };
 };

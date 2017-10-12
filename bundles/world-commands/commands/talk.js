@@ -46,6 +46,8 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       npc.emit('conversation', player, message);
+
+      return true;
     }
   };
 };

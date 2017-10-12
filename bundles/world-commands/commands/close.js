@@ -81,7 +81,8 @@ module.exports = (srcPath, bundlePath) => {
         }
 
         B.sayAt(player, "The door swings closed.");
-        return doorRoom.closeDoor(targetRoom);
+        doorRoom.closeDoor(targetRoom);
+        return true;
       }
 
       // otherwise trying to close an item
@@ -101,7 +102,9 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       B.sayAt(player, `You close ${ItemUtil.display(item)}.`);
-      return item.close();
+      item.close();
+
+      return true;
     }
   };
 };

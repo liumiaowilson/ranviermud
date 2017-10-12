@@ -66,6 +66,8 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       B.sayAt(player, description);
+
+      return true;
     }
   };
 };

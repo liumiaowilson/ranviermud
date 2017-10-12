@@ -62,6 +62,8 @@ module.exports = (srcPath, bundlePath) => {
         const ingredient = Crafting.getResourceItem(resource);
         say(player, `  ${ItemUtil.display(ingredient)} x ${amount}`);
       }
+
+      return true;
     }
   });
 
@@ -117,6 +119,8 @@ module.exports = (srcPath, bundlePath) => {
       player.addItem(item.item);
       say(player, `<b><green>You create: ${ItemUtil.display(item.item)}.</green></b>`);
       player.save();
+
+      return true;
     }
   });
 
@@ -166,6 +170,10 @@ module.exports = (srcPath, bundlePath) => {
 
   return {
     usage: 'craft <list/create> [category #] [item #]',
+    resource: {
+      attribute: 'stamina',
+      cost: 50,
+    },
     options: {
       "list": {},
       "create": {},
@@ -182,7 +190,7 @@ module.exports = (srcPath, bundlePath) => {
         return say(player, "Invalid command. Use craft list or craft create.");
       }
 
-      subcommand.command(state)(subArgs.join(' '), player);
+      return subcommand.command(state)(subArgs.join(' '), player);
     }
   };
 };

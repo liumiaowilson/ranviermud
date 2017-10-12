@@ -121,7 +121,7 @@ module.exports = (srcPath, bundlePath) => {
         return Broadcast.sayAt(player, "You don't see anything like that here.");
       }
 
-      pickup(item, container, player);
+      return pickup(item, container, player);
     }
   };
 
@@ -142,5 +142,7 @@ module.exports = (srcPath, bundlePath) => {
 
     item.emit('get', player);
     player.emit('get', item);
+
+    return true;
   }
 };

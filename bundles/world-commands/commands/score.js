@@ -123,6 +123,8 @@ module.exports = (srcPath) => {
       printStat('karma');
       printStat('sanity');
       say("'" + B.line(25) + "'");
+
+      return true;
     }
   };
 };

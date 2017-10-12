@@ -84,6 +84,8 @@ module.exports = (srcPath, bundlePath) => {
         B.sayAt(player, "'" + B.line(78, '-', 'yellow') + "'");
         B.sayAt(player);
       }
+
+      return true;
     }
   });
 
@@ -121,6 +123,8 @@ module.exports = (srcPath, bundlePath) => {
       player.addItem(item);
       say(player, `<green>You spend <b><white>${vendorItem.cost} ${friendlyCurrencyName(vendorItem.currency)}</white></b> to purchase ${ItemUtil.display(item)}.</green>`);
       player.save();
+
+      return true;
     }
   });
 
@@ -156,6 +160,8 @@ module.exports = (srcPath, bundlePath) => {
 
       say(player, `<green>You sell ${ItemUtil.display(item)} for <b><white>${sellable.value} ${friendlyCurrencyName(sellable.currency)}</white></b>.</green>`);
       state.ItemManager.remove(item);
+
+      return true;
     }
   });
 
@@ -184,6 +190,8 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       tell(`I could give you <b><white>${sellable.value} ${friendlyCurrencyName(sellable.currency)}</white></b> for ${ItemUtil.display(targetItem)}.</green>`);
+
+      return true;
     }
   });
 
@@ -228,7 +236,7 @@ module.exports = (srcPath, bundlePath) => {
         return say(player, "Not a valid shop command. See '<b>help shops</b>'");
       }
 
-      subcommand.command(state)(vendor, commandArgs.join(' '), player);
+      return subcommand.command(state)(vendor, commandArgs.join(' '), player);
     }
   };
 };

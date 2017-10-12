@@ -19,6 +19,8 @@ module.exports = srcPath => {
 
       Broadcast.sayAt(player, `<b>Your ${arg0} report has been submitted as:</b>\n${args}`);
       Broadcast.sayAt(player, '<b>Thanks!</b>');
+
+      return true;
     }
   };
 };

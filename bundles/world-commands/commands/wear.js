@@ -56,6 +56,7 @@ module.exports = (srcPath, bundlePath) => {
       }
 
       say(player, `<green>You equip:</green> ${ItemUtil.display(item)}<green>.</green>`);
+      return true;
     }
   };
 };

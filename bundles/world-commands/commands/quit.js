@@ -17,6 +17,8 @@ module.exports = (srcPath) => {
         Broadcast.sayAtExcept(player.room, `${player.name} disappears.`, player);
         player.socket.emit('close');
       });
+
+      return true;
     }
   };
 };

@@ -46,6 +46,8 @@ module.exports = (srcPath, bundlesPath) => {
       }
       say(skill.info(player), 80);
       say('<b>' + B.line(80) + '</b>');
+
+      return true;
     }
   };
 };

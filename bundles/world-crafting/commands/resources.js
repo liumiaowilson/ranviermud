@@ -32,6 +32,8 @@ module.exports = (srcPath, bundlePath) => {
       if (!totalAmount) {
         return B.sayAt(player, "You haven't gathered any resources.");
       }
+
+      return true;
     }
   };
 };

@@ -109,6 +109,8 @@ module.exports = (srcPath, bundlePath) => {
         say(`You used up all the magic in ${ItemUtil.display(item)} and it disappears in a puff of smoke.`);
         state.ItemManager.remove(item);
       }
+
+      return true;
     }
   };
 };

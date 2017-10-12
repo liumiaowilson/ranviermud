@@ -17,6 +17,8 @@ module.exports = (srcPath, bundlePath) => {
       for (const [slot, item] of player.equipment) {
         Broadcast.sayAt(player, `  <${slot}> ${ItemUtil.display(item)}`);
       }
+
+      return true;
     }
   };
 };

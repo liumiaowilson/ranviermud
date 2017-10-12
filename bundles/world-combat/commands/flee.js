@@ -33,6 +33,8 @@ module.exports = (srcPath, bundlePath) => {
 
       player.removeFromCombat();
       state.CommandManager.get('move').execute(nextRoom, player);
+
+      return true;
     }
   };
 };

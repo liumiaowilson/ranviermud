@@ -10,6 +10,8 @@ module.exports = (srcPath) => {
       player.save(() => {
         Broadcast.sayAt(player, "Saved.");
       });
+
+      return true;
     }
   };
 };

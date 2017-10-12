@@ -45,6 +45,8 @@ module.exports = (srcPath, bundlePath) => {
           say(player, `[<b><yellow>${symbol}</yellow></b>] - ${displayIndex}. ${quest.config.title}`);
         }
       }
+
+      return true;
     }
   });
 
@@ -85,6 +87,8 @@ module.exports = (srcPath, bundlePath) => {
 
       player.questTracker.start(targetQuest);
       player.save();
+
+      return true;
     }
   });
 
@@ -119,6 +123,8 @@ module.exports = (srcPath, bundlePath) => {
         );
         say(player, '  ' + Broadcast.line(78));
       }
+
+      return true;
     }
   });
 
@@ -147,6 +153,8 @@ module.exports = (srcPath, bundlePath) => {
 
       quest.complete();
       player.save();
+
+      return true;
     }
   });
 
@@ -175,7 +183,7 @@ module.exports = (srcPath, bundlePath) => {
         return say(player, "Invalid command. See 'help quest'");
       }
 
-      subcommand.command(state)(options, player);
+      return subcommand.command(state)(options, player);
     }
   };
 };

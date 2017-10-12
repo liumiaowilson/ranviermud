@@ -16,6 +16,8 @@ module.exports = (srcPath) => {
         'You are now able to enter into player-on-player duels.' :
         'You are now a pacifist and cannot enter player-on-player duels.';
       Broadcast.sayAt(player, message);
+
+      return true;
     }
   };
 };

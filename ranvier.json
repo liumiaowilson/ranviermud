@@ -36,6 +36,6 @@
   "startingRoom": "start:room_home",
   "moveCommand": "move",
   "skillLag": 2000,
-  "defaultMaxPlayerInventory": 16,
+  "defaultMaxPlayerInventory": 160,
   "maxIdleTime": 20
 }

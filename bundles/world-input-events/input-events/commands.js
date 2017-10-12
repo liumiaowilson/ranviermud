@@ -49,14 +49,7 @@ module.exports = (src) => {
               break;
             }
             case CommandTypes.SKILL: {
-              // See bundles/world-player-events/player-events.js commandQueued and updateTick for when these
-              // actually get executed
-              player.queueCommand({
-                execute: _ => {
-                  player.emit('useAbility', result.skill, result.args);
-                },
-                label: data,
-              }, result.skill.lag || state.Config.get('skillLag') || 1000);
+              state.CommandManager.get('do').execute(result.skill.id + ' ' + result.args, player);
               break;
             }
           }

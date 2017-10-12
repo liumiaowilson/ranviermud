@@ -36,14 +36,14 @@ class Logger {
     Highest priority logging.
   */
   static error(...messages) {
-    winston.log('error', ...messages);
+    this.pretty('error', ...messages);
   }
 
   /*
     Less high priority than error, still higher visibility than default.
   */
   static warn(...messages) {
-    winston.log('warn', ...messages);
+    this.pretty('warn', ...messages);
   }
 
   /*
@@ -51,13 +51,20 @@ class Logger {
     Only logs if the environment variable is set to VERBOSE.
   */
   static verbose(...messages) {
-    winston.log('verbose', ...messages);
+    this.pretty('verbose', ...messages);
   }
 
   /*
     Debug the messages
   */
   static debug(...messages) {
+    this.pretty('verbose', ...messages);
+  }
+
+  /*
+    Pretty print the message
+  */
+  static pretty(level, ...messages) {
     let pretty = messages.map(message => {
       if(typeof message === "string") {
         return message;
@@ -75,7 +82,7 @@ class Logger {
         return message;
       }
     });
-    winston.log('verbose', ...pretty);
+    winston.log(level, ...pretty);
   }
 
   //TODO: Be able to set and deactivate file logging via a server command.

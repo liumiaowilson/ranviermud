@@ -218,7 +218,7 @@ class Player extends Character {
           newItem.isEquipped = true;
           this.equip(newItem);
         } catch (e) {
-          Logger.debug("Failed to equip item", e.message, e);
+          Logger.error("Failed to equip item", e.message, e);
         }
       }
     } else {

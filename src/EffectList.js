@@ -145,7 +145,7 @@ class EffectList {
         }
       }
       catch(e) {
-        Logger.debug("Validate effect error: ", effect.constructor, effect, e);
+        Logger.error("Validate effect error: ", effect.constructor, effect, e);
       }
     }
   }

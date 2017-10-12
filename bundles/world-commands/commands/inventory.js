@@ -18,9 +18,20 @@ module.exports = (srcPath, bundlePath) => {
       }
       Broadcast.sayAt(player, ':');
 
-      // TODO: Implement grouping
+      let items = {};
+
       for (const [, item ] of player.inventory) {
-        Broadcast.sayAt(player, ItemUtil.display(item));
+        let itemData = items[item.name] || {};
+        itemData.count = itemData.count || 0;
+        itemData.count += 1;
+        itemData.item = item;
+        items[item.name] = itemData;
+      }
+
+      for (const [, itemData ] of Object.entries(items)) {
+        const item = itemData.item;
+        const count = itemData.count;
+        Broadcast.sayAt(player, `${ItemUtil.display(item)} x ${count}`);
       }
 
       return true;

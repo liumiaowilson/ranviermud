@@ -16,11 +16,15 @@
   keywords: ["old", "man"]
   name: "老人"
   level: 99
-  script: 'script_npc_old_man'
   pacifist: true
   description: "一个老人坐在地上，腿盘着."
   behaviors:
     sentient: true
+    information:
+      messages: [
+        "欢迎, %player%. 东面是战斗训练场.",
+        "再往西面是店铺，那里你可以买点药水."
+      ]
     tutor:
       skills:
         "lunge":

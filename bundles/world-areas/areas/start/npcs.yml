@@ -39,7 +39,9 @@
   description: "一只小狗朝你汪汪的叫."
   pacifist: true
   level: 1
-  script: 'script_npc_puppy'
+  behaviors:
+    follow:
+      message: '小狗兴奋的叫着，朝你跑了过来.'
 - id: npc_boar
   keywords: ["boar"]
   level: 2

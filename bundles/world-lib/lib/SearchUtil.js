@@ -79,6 +79,7 @@ function listKeywords(player, predicate) {
     listKeywordsOfList(room.players, predicate).forEach(keyword => keywords.add(keyword));
     listKeywordsOfList(room.npcs, predicate).forEach(keyword => keywords.add(keyword));
     listKeywordsOfList(player.inventory, predicate).forEach(keyword => keywords.add(keyword));
+    listKeywordsOfList(player.equipment, predicate).forEach(keyword => keywords.add(keyword));
 
     return keywords;
 }

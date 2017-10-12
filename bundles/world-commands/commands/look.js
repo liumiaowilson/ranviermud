@@ -234,6 +234,7 @@ module.exports = (srcPath, bundlePath) => {
     entity = entity || CommandParser.parseDot(search, room.players);
     entity = entity || CommandParser.parseDot(search, room.npcs);
     entity = entity || CommandParser.parseDot(search, player.inventory);
+    entity = entity || CommandParser.parseDot(search, player.equipment);
 
     if (!entity) {
       return B.sayAt(player, "You don't see anything like that here.");

@@ -343,6 +343,10 @@ module.exports = (srcPath) => {
           B.sayAt(this, `<b><red>You killed ${target.name}!</red></b>`);
         }
 
+        if (this.equipment.has('wield')) {
+          this.equipment.get('wield').emit('deathblow', target, false, this);
+        }
+
         this.emit('experience', xp);
       }
     }

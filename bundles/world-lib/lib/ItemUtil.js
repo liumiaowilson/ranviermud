@@ -62,7 +62,8 @@ exports.renderItem = function (state, item, player) {
       const dps = ((props.minDamage + props.maxDamage) / 2) / props.speed;
       buf += sprintf('| %-36s |\r\n', `(${dps.toPrecision(2)} damage per second)`);
       if(item.hasBehavior('alive')) {
-        buf += sprintf('| %-36s |\r\n', `It is alive, level ${item.properties.weaponLevel || 1}, experience ${item.properties.weaponExp || 0}.`);
+        const aliveConfig = item.getBehavior('alive');
+        buf += sprintf('| %-36s |\r\n', `It is alive, level ${aliveConfig.level || 1}, experience ${aliveConfig.exp || 0}.`);
       }
       break;
     case ItemType.ARMOR:

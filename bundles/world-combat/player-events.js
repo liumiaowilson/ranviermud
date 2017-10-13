@@ -344,7 +344,7 @@ module.exports = (srcPath) => {
         }
 
         if (this.equipment.has('wield')) {
-          this.equipment.get('wield').emit('deathblow', target, false, this);
+          this.equipment.get('wield').emit('deathblow', target, false);
         }
 
         this.emit('experience', xp);

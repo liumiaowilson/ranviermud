@@ -175,7 +175,9 @@
     vampire:
       chance: 50
       magnitude: 0.25
-    alive: true
+    alive:
+      level: 1
+      exp: 0
   properties:
     quality: epic
     itemLevel: 15

@@ -10,20 +10,16 @@ module.exports = srcPath => {
 
   return {
     listeners: {
-      deathblow: state => function (config, target, skipParty, attacker) {
-        let weaponLevel = this.properties.weaponLevel || 1;
-        let weaponExp = this.properties.weaponExp || 0;
+      deathblow: state => function (config, target, skipParty) {
+        let weaponLevel = config.level || 1;
+        let weaponExp = config.exp || 0;
         weaponExp += 1;
         if(weaponExp >= 100) {
           weaponExp = 100;
         }
 
-        this.properties.weaponLevel = weaponLevel;
-        this.properties.weaponExp = weaponExp;
-
-        if(attacker && !attacker.isNpc) {
-          attacker.save();
-        }
+        config.level = weaponLevel;
+        config.exp = weaponExp;
       },
     }
   };
